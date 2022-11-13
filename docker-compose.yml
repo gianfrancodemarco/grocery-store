@@ -1,0 +1,50 @@
+version: "3.3"
+services:
+
+  oracle:
+    container_name: 'database-systems-exam_oracle'
+    image: "doctorkirk/oracle-19c"
+    ports:
+      - "1521:1521"
+    volumes: 
+        - oracle-volume:/opt/oracle/oradata
+        - ./database/scripts/startup:/opt/oracle/scripts/startup
+    env_file: 
+      - oracle.env
+            
+  cloudbeaver:
+    image: "dbeaver/cloudbeaver:latest"
+    ports:
+      - "8978:8978"
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver/workspace
+   
+  backend:
+    depends_on:
+      - oracle
+    ports:
+      - "8081:80"
+    env_file:
+      - .env
+      - oracle.env
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    volumes:
+      - ./backend/app:/app
+    command: /start-reload.sh
+
+  frontend:
+    ports:
+      - "8080:8080"
+    build:
+      context: ./frontend
+      dockerfile: dev.frontend.dockerfile
+    volumes:
+      - ./frontend:/app
+      - ignore:/app/node_modules/
+
+volumes:
+  cloudbeaver:
+  ignore:
+  oracle-volume:
