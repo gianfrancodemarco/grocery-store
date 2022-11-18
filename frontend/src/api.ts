@@ -1,6 +1,13 @@
 import axios from "axios";
 import { apiUrl } from "@/env";
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from "./interfaces";
+import {
+  IUserProfile,
+  IUserProfileUpdate,
+  IUserProfileCreate,
+  IFruit,
+  IFruitUpdate,
+  IFruitCreate,
+} from "./interfaces";
 
 function authHeaders(token: string) {
   return {
@@ -45,5 +52,17 @@ export const api = {
       new_password: password,
       token,
     });
+  },
+  async getFruits(token: string) {
+    return axios.get<IFruit[]>(`${apiUrl}/api/v1/fruits/`, authHeaders(token));
+  },
+  async getFruit(token: string, fruitId: number) {
+    return axios.get<IFruit>(`${apiUrl}/api/v1/fruits/${fruitId}`, authHeaders(token));
+  },
+  async updateFruit(token: string, fruitId: number, data: IFruitUpdate) {
+    return axios.put(`${apiUrl}/api/v1/fruits/${fruitId}`, data, authHeaders(token));
+  },
+  async createFruit(token: string, data: IFruitCreate) {
+    return axios.post(`${apiUrl}/api/v1/fruits/`, data, authHeaders(token));
   },
 };

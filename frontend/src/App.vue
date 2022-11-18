@@ -17,7 +17,7 @@
           </v-row>
         </v-container>
       </v-main>
-      <router-view v-else />
+      <router-view :key="$route.fullPath" v-else />
       <NotificationsManager></NotificationsManager>
     </v-app>
   </div>

@@ -10,6 +10,14 @@
       <v-layout column fill-height>
         <v-list>
           <v-subheader>Main menu</v-subheader>
+          <v-list-item to="/main/fruits">
+            <v-list-item-action>
+              <v-icon>mdi-view-dashboard</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Fruits</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="/main/dashboard">
             <v-list-item-action>
               <v-icon>mdi-view-dashboard</v-icon>
@@ -118,7 +126,7 @@
       </v-menu>
     </v-app-bar>
     <v-main>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-main>
     <v-footer class="pa-3" fixed app>
       <v-spacer></v-spacer>

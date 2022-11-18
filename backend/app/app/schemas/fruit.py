@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 # Shared properties
 class FruitBase(BaseModel):
+    id: Optional[int] = None
     name: Optional[str] = None
     peel_type: Optional[PeelTypeEnum] = None
 

@@ -21,3 +21,19 @@ export interface IUserProfileCreate {
   is_active?: boolean;
   is_superuser?: boolean;
 }
+
+
+export interface IFruit {
+  id: number;
+  name: string;
+  peel_type: string;  
+}
+
+export interface IFruitUpdate {
+  id: number;
+  name: string;
+  peel_type: string;  
+}
+
+export interface IFruitCreate {
+}

@@ -2,6 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import RouterComponent from "./components/RouterComponent.vue";
+import Fruits from "./views/main/fruit/Fruits.vue";
+import CreateFruit from "./views/main/fruit/CreateFruit.vue";
+import EditFruit from "./views/main/fruit/EditFruit.vue";
 
 Vue.use(Router);
 
@@ -39,6 +42,20 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "main" */ "./views/main/Main.vue"),
           children: [
+            {
+              path: "fruits",
+              component: Fruits,
+            },
+            {
+              path: "fruits/edit/:id",
+              name: "main-fruits-fruit-edit",
+              component: EditFruit,
+            },
+            {
+              path: "fruits/create",
+              name: "main-fruits-create",
+              component: CreateFruit,
+            },
             {
               path: "dashboard",
               component: () =>
