@@ -13,7 +13,7 @@ env:
   ORACLE_PASSWORD: password
   ORACLE_DB: ci
   ORACLE_PORT: 1521
-  SQLALCHEMY_DATABASE_URI: test 
+  SQLALCHEMY_DATABASE_URI: oracle:////tmp/test.db
   FIRST_SUPERUSER: ci@test.it
   FIRST_SUPERUSER_PASSWORD: ci
   
