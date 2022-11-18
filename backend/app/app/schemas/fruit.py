@@ -8,12 +8,13 @@ from pydantic import BaseModel
 class FruitBase(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
-    peel_type: Optional[PeelTypeEnum] = None
+    peel_type: Optional[str] = None
 
 
 # Properties to receive on fruit creation
 class FruitCreate(FruitBase):
     name: str
+    peel_type: str
 
 
 # Properties to receive on fruit update

@@ -54,13 +54,13 @@ export const actions = {
       await dispatchCheckApiError(context, error);
     }
   },
-  async actionCreateFruit(context: MainContext, payload: IFruitCreate) {
+  async actionCreateFruit(context: MainContext, payload: { fruit: IFruitCreate }) {
     try {
       const loadingNotification = { content: "saving", showProgress: true };
       commitAddNotification(context, loadingNotification);
       const response = (
         await Promise.all([
-          api.createFruit(context.rootState.main.token, payload),
+          api.createFruit(context.rootState.main.token, payload.fruit),
           await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
         ])
       )[0];

@@ -13,7 +13,7 @@ class CRUDFRuit(CRUDBase[Fruit, FruitCreate, FruitUpdate]):
     def create(self, db: Session, *, obj_in: FruitCreate) -> Fruit:
         db_obj = Fruit(
             name=obj_in.name,
-            peel_type=obj_in.peel_type.value
+            peel_type=obj_in.peel_type
         )
         db.add(db_obj)
         db.commit()

@@ -12,7 +12,7 @@
           <v-subheader>Main menu</v-subheader>
           <v-list-item to="/main/fruits">
             <v-list-item-action>
-              <v-icon>mdi-view-dashboard</v-icon>
+              <v-icon>mdi-fruit-cherries</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Fruits</v-list-item-title>

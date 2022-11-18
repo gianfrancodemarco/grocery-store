@@ -35,7 +35,6 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="cancel">Cancel</v-btn>
-            <v-btn type="reset">Reset</v-btn>
             <v-btn :disabled="invalid" type="submit"> Save </v-btn>
           </v-card-actions>
         </v-card>
@@ -80,19 +79,6 @@ export default class EditFruit extends Vue {
     console.log(this.$router.path);
     await dispatchGetFruit(this.$store, { id: this.$route.params.id });
     this.onReset();
-  }
-
-  public onReset() {
-    // this.setPassword = false;
-    // this.password1 = "";
-    // this.password2 = "";
-    // this.$refs.observer.reset();
-    // if (this.user) {
-    //   this.fullName = this.user.full_name;
-    //   this.email = this.user.email;
-    //   this.isActive = this.user.is_active;
-    //   this.isSuperuser = this.user.is_superuser;
-    // }
   }
 
   public cancel() {
