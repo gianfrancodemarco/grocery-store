@@ -8,7 +8,15 @@ on:
 
 env:
   PROJECT_NAME: GITLAB-CI
-
+  ORACLE_SERVER: localhost
+  ORACLE_USER: SYS
+  ORACLE_PASSWORD: password
+  ORACLE_DB: ci
+  ORACLE_PORT: 1521
+  SQLALCHEMY_DATABASE_URI: "" 
+  FIRST_SUPERUSER: ci
+  FIRST_SUPERUSER_PASSWORD: ci
+  
 jobs:
   pytest:
     runs-on: ubuntu-latest
