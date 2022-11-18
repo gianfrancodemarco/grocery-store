@@ -6,6 +6,9 @@ on:
     types: 
       - completed
 
+env:
+  PROJECT_NAME: GITLAB-CI
+
 jobs:
   pytest:
     runs-on: ubuntu-latest
