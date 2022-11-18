@@ -1,6 +1,5 @@
 from __future__ import with_statement
 
-import os
 from logging.config import fileConfig
 
 from alembic import context
@@ -20,7 +19,12 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 
+import sys
+sys.path.append('..')
+sys.path.append('../app')
+
 from app.db.base import Base  # noqa
+from app.models import *
 
 target_metadata = Base.metadata
 

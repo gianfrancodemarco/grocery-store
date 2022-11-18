@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app import crud, schemas
 from app.core.config import settings
 from app.db import base  # noqa: F401
+from schemas.fruit import PeelTypeEnum
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly
@@ -23,3 +24,21 @@ def init_db(db: Session) -> None:
             is_superuser=True,
         )
         user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+
+    fruits_in = [
+        schemas.FruitCreate(
+            name="Banana",
+            peel_type=PeelTypeEnum.NOT_EDIBLE
+        ),
+        schemas.FruitCreate(
+            name="Apple",
+            peel_type=PeelTypeEnum.NOT_EDIBLE
+        )
+    ]
+    
+    for fruit_in in fruits_in:
+        fruit = crud.fruit.get_by_name(db, name=fruit_in.name)
+        if not fruit:
+            crud.fruit.create(
+                db, obj_in=fruit_in
+            )
