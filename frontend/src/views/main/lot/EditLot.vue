@@ -72,7 +72,6 @@ export default class EditLot extends Vue {
   public async mounted() {
     await dispatchGetLot(this.$store, { id: this.$route.params.id });
     await dispatchGetFruits(this.$store);
-    this.onReset();
   }
 
   public cancel() {

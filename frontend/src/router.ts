@@ -8,6 +8,9 @@ import EditFruit from "./views/main/fruit/EditFruit.vue";
 import Lots from "./views/main/lot/Lots.vue";
 import CreateLot from "./views/main/lot/CreateLot.vue";
 import EditLot from "./views/main/lot/EditLot.vue";
+import Allergies from "./views/main/allergies/Allergies.vue";
+import CreateAllergy from "./views/main/allergies/CreateAllergy.vue";
+import EditAllergy from "./views/main/allergies/EditAllergy.vue";
 
 Vue.use(Router);
 
@@ -72,6 +75,20 @@ export default new Router({
               path: "lots/create",
               name: "main-lots-create",
               component: CreateLot,
+            },
+            {
+              path: "allergies",
+              component: Allergies,
+            },
+            {
+              path: "allergies/edit/:id",
+              name: "main-allergies-allergy-edit",
+              component: EditAllergy,
+            },
+            {
+              path: "allergies/create",
+              name: "main-allergies-create",
+              component: CreateAllergy,
             },
             {
               path: "dashboard",

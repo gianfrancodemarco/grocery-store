@@ -13,4 +13,4 @@ class Lot(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     fruit_id = Column(Integer, ForeignKey("FRUIT.id"))
-    parent = relationship("Fruit", back_populates="children")
+    fruit = relationship("Fruit", back_populates="lots")

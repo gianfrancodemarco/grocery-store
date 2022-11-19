@@ -10,6 +10,9 @@ import {
   ILotUpdate,
   ILotCreate,
   ILot,
+  IAllergy,
+  IAllergyCreate,
+  IAllergyUpdate,
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -81,5 +84,25 @@ export const api = {
   },
   async createLot(token: string, data: ILotCreate) {
     return axios.post(`${apiUrl}/api/v1/lots/`, data, authHeaders(token));
+  },
+  //Allergies
+  async getAllergies(token: string) {
+    return axios.get<IAllergy[]>(`${apiUrl}/api/v1/allergies/`, authHeaders(token));
+  },
+  async getAllergy(token: string, allergyId: number) {
+    return axios.get<IAllergy>(
+      `${apiUrl}/api/v1/allergies/${allergyId}`,
+      authHeaders(token),
+    );
+  },
+  async updateAllergy(token: string, allergyId: number, data: IAllergyUpdate) {
+    return axios.put(
+      `${apiUrl}/api/v1/allergies/${allergyId}`,
+      data,
+      authHeaders(token),
+    );
+  },
+  async createAllergy(token: string, data: IAllergyCreate) {
+    return axios.post(`${apiUrl}/api/v1/allergies/`, data, authHeaders(token));
   },
 };

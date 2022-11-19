@@ -12,7 +12,7 @@
           <v-subheader>Main menu</v-subheader>
           <v-list-item to="/main/lots">
             <v-list-item-action>
-              <v-icon>mdi-fruit-cherries</v-icon>
+              <v-icon>mdi-land-plots</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Lots</v-list-item-title>
@@ -24,6 +24,14 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Fruits</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/allergies">
+            <v-list-item-action>
+              <v-icon>mdi-fruit-cherries</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Allergies</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item to="/main/dashboard">

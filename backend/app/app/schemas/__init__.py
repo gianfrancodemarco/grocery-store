@@ -4,3 +4,4 @@ from .token import Token, TokenPayload
 from .user import User, UserCreate, UserInDB, UserUpdate
 from .fruit import Fruit, FruitCreate, FruitInDB, FruitUpdate
 from .lot import Lot, LotCreate, LotInDB, LotUpdate
+from .allergy import Allergy, AllergyCreate, AllergyInDB, AllergyUpdate

@@ -6,6 +6,7 @@ import { State } from "./state";
 import { adminModule } from "./admin";
 import { fruitsModule } from "./fruits";
 import { lotsModule } from "./lots";
+import { allergiesModule } from "./allergies";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ const storeOptions: StoreOptions<State> = {
     admin: adminModule,
     fruits: fruitsModule,
     lots: lotsModule,
+    allergies: allergiesModule,
   },
 };
 

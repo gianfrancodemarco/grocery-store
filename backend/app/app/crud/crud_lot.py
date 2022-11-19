@@ -6,7 +6,7 @@ from app.schemas.lot import LotCreate, LotUpdate
 from sqlalchemy.orm import Session
 
 
-class CRUDFRuit(CRUDBase[Lot, LotCreate, LotUpdate]):
+class CRUDLot(CRUDBase[Lot, LotCreate, LotUpdate]):
     def get_by_name(self, db: Session, *, name: str) -> Optional[Lot]:
         return db.query(Lot).filter(Lot.name == name).first()
 
@@ -29,4 +29,4 @@ class CRUDFRuit(CRUDBase[Lot, LotCreate, LotUpdate]):
             update_data = obj_in.dict(exclude_unset=True)
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
-lot = CRUDFRuit(Lot)
+lot = CRUDLot(Lot)

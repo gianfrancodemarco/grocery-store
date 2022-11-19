@@ -4,29 +4,39 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Create Lot</div>
+            <div class="headline primary--text">Edit Allergy</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
               <div class="subheading secondary--text text--lighten-2">Id</div>
-              <div v-if="lot" class="title primary--text text--darken-2">
-                {{ "-" }}
+              <div v-if="allergy" class="title primary--text text--darken-2">
+                {{ allergy.id }}
               </div>
               <div v-else class="title primary--text text--darken-2">-----</div>
             </div>
             <validation-provider v-slot="{ errors }" name="Name" rules="required">
               <v-text-field
-                v-model="lot.name"
+                v-model="allergy.name"
                 label="Name"
                 required
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Fruit id">
+            <validation-provider v-slot="{ errors }" rules="required" name="Symptoms">
+              <v-text-field
+                v-model="allergy.symptoms"
+                label="Symptoms"
+                required
+                :error-messages="errors"
+              ></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Fruits">
               <v-select
-                v-model="lot.fruit_id"
+                class="mt-7"
+                v-model="allergy.fruits"
                 :items="fruits"
-                label="Fruit id"
+                multiple
+                label="Fruits that can cause this allergy"
                 :error-messages="errors"
                 :item-text="(item) => `${item.id} - ${item.name}`"
                 item-value="id"
@@ -47,12 +57,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { ILotCreate } from "@/interfaces";
-import { dispatchCreateLot } from "@/store/lots/actions";
+import { IAllergyUpdate } from "@/interfaces";
+import { dispatchGetAllergy, dispatchUpdateAllergy } from "@/store/allergies/actions";
 import { dispatchGetFruits } from "@/store/fruits/actions";
 import { readFruits } from "@/store/fruits/getters";
+import { readAllergy } from "@/store/allergies/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
+
 extend("required", { ...required, message: "{_field_} can not be empty" });
 extend("confirmed", { ...confirmed, message: "Passwords do not match" });
 extend("email", { ...email, message: "Invalid email address" });
@@ -63,17 +75,13 @@ extend("email", { ...email, message: "Invalid email address" });
     ValidationProvider,
   },
 })
-export default class EditLot extends Vue {
+export default class EditAllergy extends Vue {
   $refs!: {
     observer: InstanceType<typeof ValidationObserver>;
   };
 
-  public lot: ILotCreate = {
-    name: null,
-    fruit_id: null,
-  };
-
   public async mounted() {
+    await dispatchGetAllergy(this.$store, { id: this.$route.params.id });
     await dispatchGetFruits(this.$store);
   }
 
@@ -87,17 +95,26 @@ export default class EditLot extends Vue {
       return;
     }
 
-    const updatedLot: ILotCreate = {
-      name: this.lot.name,
-      fruit_id: this.lot.fruit_id,
+    const updatedAllergy: IAllergyUpdate = {
+      id: this.allergy.id,
+      name: this.allergy.name,
+      symptoms: this.allergy.symptoms,
+      fruits: this.allergy.fruits,
     };
 
-    await dispatchCreateLot(this.$store, {
-      id: this.lot.id,
-      lot: updatedLot,
+    await dispatchUpdateAllergy(this.$store, {
+      id: this.allergy.id,
+      allergy: updatedAllergy,
     });
 
-    this.$router.push("/main/lots");
+    this.$router.push("/main/allergies");
+  }
+  get allergy() {
+    const allergyFromStore = readAllergy(this.$store);
+    return {
+      ...allergyFromStore,
+      fruits: allergyFromStore?.fruits.map((el) => el.id),
+    };
   }
   get fruits() {
     return readFruits(this.$store);

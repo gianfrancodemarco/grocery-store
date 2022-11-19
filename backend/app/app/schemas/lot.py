@@ -1,6 +1,7 @@
 from typing import Optional
 
 from app.enums.peel_type_enum import PeelTypeEnum
+from app.schemas.fruit import Fruit
 from pydantic import BaseModel
 
 
@@ -9,7 +10,7 @@ class LotBase(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
     fruit_id: Optional[int] = None
-
+    fruit: Optional[Fruit] = None
 
 # Properties to receive on fruit creation
 class LotCreate(LotBase):
@@ -19,7 +20,7 @@ class LotCreate(LotBase):
 
 # Properties to receive on fruit update
 class LotUpdate(LotBase):
-    pass
+    id: int = None
 
 
 # Properties shared by models stored in DB
@@ -27,6 +28,7 @@ class LotInDBBase(LotBase):
     id: int
     name: str
     fruit_id: int
+    fruit: Fruit
 
     class Config:
         orm_mode = True

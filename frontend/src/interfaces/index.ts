@@ -56,3 +56,23 @@ export interface ILotCreate {
   name: string;
   fruit_id: number;  
 }
+
+export interface IAllergy {
+  id: number;
+  name: string;
+  fruit_id: number;  
+  fruits: number[]
+}
+
+export interface IAllergyUpdate {
+  id: number;
+  name: string;
+  fruit_id: number;
+  fruits: number[]  
+}
+
+export interface IAllergyCreate {
+  name: string;
+  fruit_id: number;  
+  fruits: number[]
+}

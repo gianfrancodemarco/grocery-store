@@ -67,9 +67,7 @@ export default class EditFruit extends Vue {
   };
 
   public async mounted() {
-    console.log(this.$router.path);
     await dispatchGetFruit(this.$store, { id: this.$route.params.id });
-    this.onReset();
   }
 
   public cancel() {
