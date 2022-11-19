@@ -6,6 +6,7 @@ from sqlalchemy import Column, Enum, Integer, String
 from sqlalchemy.orm import relationship
 
 from .allergies_fruits import allergies_fruits
+from .recipes_fruits import recipes_fruits
 
 if TYPE_CHECKING:
     from .fruit import Fruit  # noqa: F401
@@ -23,4 +24,7 @@ class Fruit(Base):
     lots = relationship("Lot")
     allergies = relationship(
         "Allergy", secondary=allergies_fruits, back_populates="fruits"
+    )
+    recipes = relationship(
+        "Recipe", secondary=recipes_fruits, back_populates="fruits"
     )

@@ -28,10 +28,18 @@
           </v-list-item>
           <v-list-item to="/main/allergies">
             <v-list-item-action>
-              <v-icon>mdi-fruit-cherries</v-icon>
+              <v-icon>mdi-flower-pollen</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Allergies</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/recipes">
+            <v-list-item-action>
+              <v-icon>mdi-flower-pollen</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item to="/main/dashboard">

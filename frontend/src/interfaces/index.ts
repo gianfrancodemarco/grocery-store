@@ -60,19 +60,33 @@ export interface ILotCreate {
 export interface IAllergy {
   id: number;
   name: string;
-  fruit_id: number;  
   fruits: number[]
 }
 
 export interface IAllergyUpdate {
   id: number;
   name: string;
-  fruit_id: number;
   fruits: number[]  
 }
 
 export interface IAllergyCreate {
   name: string;
-  fruit_id: number;  
+  fruits: number[]
+}
+
+export interface IRecipe {
+  id: number;
+  name: string;
+  fruits: number[]
+}
+
+export interface IRecipeUpdate {
+  id: number;
+  name: string;
+  fruits: number[]  
+}
+
+export interface IRecipeCreate {
+  name: string;
   fruits: number[]
 }

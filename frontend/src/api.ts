@@ -13,6 +13,9 @@ import {
   IAllergy,
   IAllergyCreate,
   IAllergyUpdate,
+  IRecipe,
+  IRecipeCreate,
+  IRecipeUpdate,
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -104,5 +107,21 @@ export const api = {
   },
   async createAllergy(token: string, data: IAllergyCreate) {
     return axios.post(`${apiUrl}/api/v1/allergies/`, data, authHeaders(token));
+  },
+  //Recipes
+  async getRecipes(token: string) {
+    return axios.get<IRecipe[]>(`${apiUrl}/api/v1/recipes/`, authHeaders(token));
+  },
+  async getRecipe(token: string, allergyId: number) {
+    return axios.get<IRecipe>(
+      `${apiUrl}/api/v1/recipes/${allergyId}`,
+      authHeaders(token),
+    );
+  },
+  async updateRecipe(token: string, allergyId: number, data: IRecipeUpdate) {
+    return axios.put(`${apiUrl}/api/v1/recipes/${allergyId}`, data, authHeaders(token));
+  },
+  async createRecipe(token: string, data: IRecipeCreate) {
+    return axios.post(`${apiUrl}/api/v1/recipes/`, data, authHeaders(token));
   },
 };

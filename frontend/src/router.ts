@@ -8,9 +8,12 @@ import EditFruit from "./views/main/fruit/EditFruit.vue";
 import Lots from "./views/main/lot/Lots.vue";
 import CreateLot from "./views/main/lot/CreateLot.vue";
 import EditLot from "./views/main/lot/EditLot.vue";
-import Allergies from "./views/main/allergies/Allergies.vue";
-import CreateAllergy from "./views/main/allergies/CreateAllergy.vue";
-import EditAllergy from "./views/main/allergies/EditAllergy.vue";
+import Allergies from "./views/main/allergy/Allergies.vue";
+import CreateAllergy from "./views/main/allergy/CreateAllergy.vue";
+import EditAllergy from "./views/main/allergy/EditAllergy.vue";
+import Recipes from "./views/main/recipe/Recipes.vue";
+import CreateRecipe from "./views/main/recipe/CreateRecipe.vue";
+import EditRecipe from "./views/main/recipe/EditRecipe.vue";
 
 Vue.use(Router);
 
@@ -89,6 +92,20 @@ export default new Router({
               path: "allergies/create",
               name: "main-allergies-create",
               component: CreateAllergy,
+            },
+            {
+              path: "recipes",
+              component: Recipes,
+            },
+            {
+              path: "recipes/edit/:id",
+              name: "main-recipes-recipe-edit",
+              component: EditRecipe,
+            },
+            {
+              path: "recipes/create",
+              name: "main-recipes-create",
+              component: CreateRecipe,
             },
             {
               path: "dashboard",
