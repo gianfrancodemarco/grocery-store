@@ -1,14 +1,14 @@
 import { api } from "@/api";
 import { ActionContext } from "vuex";
-import { IAllergyCreate, IAllergyUpdate } from "@/interfaces";
+import { IRecipeCreate, IRecipeUpdate } from "@/interfaces";
 import { State } from "../state";
-import { AllergyState } from "./state";
+import { RecipeState } from "./state";
 import { getStoreAccessors } from "typesafe-vuex";
-import { commitSetRecipes, commitSetAllergy } from "./mutations";
+import { commitSetRecipes, commitSetRecipe } from "./mutations";
 import { dispatchCheckApiError } from "../main/actions";
 import { commitAddNotification, commitRemoveNotification } from "../main/mutations";
 
-type MainContext = ActionContext<AllergyState, State>;
+type MainContext = ActionContext<RecipeState, State>;
 
 export const actions = {
   async actionGetRecipes(context: MainContext) {
@@ -21,53 +21,53 @@ export const actions = {
       await dispatchCheckApiError(context, error);
     }
   },
-  async actionGetAllergy(context: MainContext, payload: { id: number }) {
+  async actionGetRecipe(context: MainContext, payload: { id: number }) {
     try {
-      const response = await api.getAllergy(context.rootState.main.token, payload.id);
+      const response = await api.getRecipe(context.rootState.main.token, payload.id);
       if (response) {
-        commitSetAllergy(context, response.data);
+        commitSetRecipe(context, response.data);
       }
     } catch (error) {
       await dispatchCheckApiError(context, error);
     }
   },
-  async actionUpdateAllergy(
+  async actionUpdateRecipe(
     context: MainContext,
-    payload: { id: number; recipe: IAllergyUpdate },
+    payload: { id: number; recipe: IRecipeUpdate },
   ) {
     try {
       const loadingNotification = { content: "saving", showProgress: true };
       commitAddNotification(context, loadingNotification);
       const response = (
         await Promise.all([
-          api.updateAllergy(context.rootState.main.token, payload.id, payload.recipe),
+          api.updateRecipe(context.rootState.main.token, payload.id, payload.recipe),
           await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
         ])
       )[0];
-      commitSetAllergy(context, response.data);
+      commitSetRecipe(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Allergy successfully updated",
+        content: "Recipe successfully updated",
         color: "success",
       });
     } catch (error) {
       await dispatchCheckApiError(context, error);
     }
   },
-  async actionCreateAllergy(context: MainContext, payload: { recipe: IAllergyCreate }) {
+  async actionCreateRecipe(context: MainContext, payload: { recipe: IRecipeCreate }) {
     try {
       const loadingNotification = { content: "saving", showProgress: true };
       commitAddNotification(context, loadingNotification);
       const response = (
         await Promise.all([
-          api.createAllergy(context.rootState.main.token, payload.recipe),
+          api.createRecipe(context.rootState.main.token, payload.recipe),
           await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
         ])
       )[0];
-      commitSetAllergy(context, response.data);
+      commitSetRecipe(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Allergy successfully created",
+        content: "Recipe successfully created",
         color: "success",
       });
     } catch (error) {
@@ -76,9 +76,9 @@ export const actions = {
   },
 };
 
-const { dispatch } = getStoreAccessors<AllergyState, State>("");
+const { dispatch } = getStoreAccessors<RecipeState, State>("");
 
-export const dispatchCreateAllergy = dispatch(actions.actionCreateAllergy);
+export const dispatchCreateRecipe = dispatch(actions.actionCreateRecipe);
 export const dispatchGetRecipes = dispatch(actions.actionGetRecipes);
-export const dispatchGetAllergy = dispatch(actions.actionGetAllergy);
-export const dispatchUpdateAllergy = dispatch(actions.actionUpdateAllergy);
+export const dispatchGetRecipe = dispatch(actions.actionGetRecipe);
+export const dispatchUpdateRecipe = dispatch(actions.actionUpdateRecipe);

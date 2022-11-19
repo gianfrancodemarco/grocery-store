@@ -4,7 +4,7 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit Recipe</div>
+            <div class="headline primary--text">Create Recipe</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
@@ -22,10 +22,14 @@
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Symptoms">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required"
+              name="Description"
+            >
               <v-text-field
-                v-model="recipe.symptoms"
-                label="Symptoms"
+                v-model="recipe.description"
+                label="Description"
                 required
                 :error-messages="errors"
               ></v-text-field>
@@ -36,7 +40,7 @@
                 v-model="recipe.fruits"
                 :items="fruits"
                 multiple
-                label="Fruits that can cause this recipe"
+                label="Fruits used by this recipe"
                 :error-messages="errors"
                 :item-text="(item) => `${item.id} - ${item.name}`"
                 item-value="id"
@@ -58,7 +62,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { IRecipeUpdate } from "@/interfaces";
-import { dispatchGetRecipe, dispatchUpdateRecipe } from "@/store/recipes/actions";
+import { dispatchUpdateRecipe, dispatchGetRecipe } from "@/store/recipes/actions";
 import { dispatchGetFruits } from "@/store/fruits/actions";
 import { readFruits } from "@/store/fruits/getters";
 import { readRecipe } from "@/store/recipes/getters";
@@ -98,7 +102,7 @@ export default class EditRecipe extends Vue {
     const updatedRecipe: IRecipeUpdate = {
       id: this.recipe.id,
       name: this.recipe.name,
-      symptoms: this.recipe.symptoms,
+      description: this.recipe.description,
       fruits: this.recipe.fruits,
     };
 
@@ -110,11 +114,7 @@ export default class EditRecipe extends Vue {
     this.$router.push("/main/recipes");
   }
   get recipe() {
-    const recipeFromStore = readRecipe(this.$store);
-    return {
-      ...recipeFromStore,
-      fruits: recipeFromStore?.fruits.map((el) => el.id),
-    };
+    return readRecipe(this.$store);
   }
   get fruits() {
     return readFruits(this.$store);

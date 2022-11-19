@@ -1,18 +1,18 @@
-import { IAllergy } from "@/interfaces";
-import { AllergyState } from "./state";
+import { IRecipe } from "@/interfaces";
+import { RecipeState } from "./state";
 import { getStoreAccessors } from "typesafe-vuex";
 import { State } from "../state";
 
 export const mutations = {
-  setrecipes(state: AllergyState, payload: IAllergy[]) {
+  setrecipes(state: RecipeState, payload: IRecipe[]) {
     state.recipes = payload;
   },
-  setrecipe(state: AllergyState, payload: IAllergy) {
+  setrecipe(state: RecipeState, payload: IRecipe) {
     state.recipe = payload;
   },
 };
 
-const { commit } = getStoreAccessors<AllergyState, State>("");
+const { commit } = getStoreAccessors<RecipeState, State>("");
 
-export const commitSetAllergy = commit(mutations.setrecipe);
+export const commitSetRecipe = commit(mutations.setrecipe);
 export const commitSetRecipes = commit(mutations.setrecipes);

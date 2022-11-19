@@ -22,10 +22,14 @@
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Symptoms">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required"
+              name="Description"
+            >
               <v-text-field
-                v-model="recipe.symptoms"
-                label="Symptoms"
+                v-model="recipe.description"
+                label="Description"
                 required
                 :error-messages="errors"
               ></v-text-field>
@@ -36,7 +40,7 @@
                 v-model="recipe.fruits"
                 :items="fruits"
                 multiple
-                label="Fruits that can cause this recipe"
+                label="Fruits used by this recipe"
                 :error-messages="errors"
                 :item-text="(item) => `${item.id} - ${item.name}`"
                 item-value="id"
@@ -101,7 +105,7 @@ export default class EditRecipe extends Vue {
 
     const updatedRecipe: IRecipeCreate = {
       name: this.recipe.name,
-      symptoms: this.recipe.symptoms,
+      description: this.recipe.description,
       fruits: this.recipe.fruits,
     };
 

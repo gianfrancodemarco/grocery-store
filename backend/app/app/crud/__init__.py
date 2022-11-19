@@ -3,6 +3,7 @@ from .crud_user import user
 from .crud_fruit import fruit
 from .crud_lot import lot
 from .crud_allergy import allergy
+from .crud_recipe import recipe
 
 # For a new basic set of CRUD operations you could just do
 

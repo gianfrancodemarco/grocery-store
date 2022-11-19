@@ -18,7 +18,7 @@ def read_recipes(
     """
     Retrieve recipes.
     """
-    return crud.Recipe.get_multi(db, skip=skip, limit=limit)
+    return crud.recipe.get_multi(db, skip=skip, limit=limit)
 
 @router.get("/{id}", response_model=schemas.Recipe)
 def read_Recipe(
@@ -29,7 +29,7 @@ def read_Recipe(
     """
     Retrieve Recipe.
     """
-    return crud.Recipe.get(db=db, id=id)
+    return crud.recipe.get(db=db, id=id)
 
 @router.post("/", response_model=schemas.Recipe)
 def create_Recipe(
@@ -41,7 +41,7 @@ def create_Recipe(
     """
     Create new item.
     """
-    Recipe = crud.Recipe.create(db=db, obj_in=Recipe_in)
+    Recipe = crud.recipe.create(db=db, obj_in=Recipe_in)
     return Recipe
 
 
@@ -56,10 +56,10 @@ def update_Recipe(
     """
     Update a Recipe.
     """
-    Recipe = crud.Recipe.get(db=db, id=id)
+    Recipe = crud.recipe.get(db=db, id=id)
     if not Recipe:
         raise HTTPException(status_code=404, detail="Item not found")
-    Recipe = crud.Recipe.update(db=db, db_obj=Recipe, obj_in=Recipe_in)
+    Recipe = crud.recipe.update(db=db, db_obj=Recipe, obj_in=Recipe_in)
     return Recipe
 
 

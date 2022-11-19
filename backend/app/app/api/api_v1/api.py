@@ -1,5 +1,5 @@
 from app.api.api_v1.endpoints import (allergies, fruits, items, login, lots,
-                                      users, utils)
+                                      users, recipes, utils)
 from fastapi import APIRouter
 
 api_router = APIRouter()
@@ -10,3 +10,4 @@ api_router.include_router(items.router, prefix="/items", tags=["items"])
 api_router.include_router(fruits.router, prefix="/fruits", tags=["fruits"])
 api_router.include_router(lots.router, prefix="/lots", tags=["lots"])
 api_router.include_router(allergies.router, prefix="/allergies", tags=["allergies"])
+api_router.include_router(recipes.router, prefix="/recipes", tags=["recipes"])

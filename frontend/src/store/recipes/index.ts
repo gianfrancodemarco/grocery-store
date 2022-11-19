@@ -1,9 +1,9 @@
 import { mutations } from "./mutations";
 import { getters } from "./getters";
 import { actions } from "./actions";
-import { AllergyState } from "./state";
+import { RecipeState } from "./state";
 
-const defaultState: AllergyState = {
+const defaultState: RecipeState = {
   recipes: [],
   recipe: null,
 };

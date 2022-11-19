@@ -36,7 +36,7 @@
           </v-list-item>
           <v-list-item to="/main/recipes">
             <v-list-item-action>
-              <v-icon>mdi-flower-pollen</v-icon>
+              <v-icon>mdi-format-list-bulleted</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Recipes</v-list-item-title>

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class Recipe(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), index=True)
-    symptoms = Column(String(1000))
+    description = Column(String(1000))
     
     fruits = relationship(
         "Fruit", secondary=recipes_fruits, back_populates="recipes"

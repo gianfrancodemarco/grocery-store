@@ -1,6 +1,6 @@
-import { IAllergy } from "@/interfaces";
+import { IRecipe } from "@/interfaces";
 
-export interface AllergyState {
-  recipes: IAllergy[];
-  recipe: IAllergy | null;
+export interface RecipeState {
+  recipes: IRecipe[];
+  recipe: IRecipe | null;
 }

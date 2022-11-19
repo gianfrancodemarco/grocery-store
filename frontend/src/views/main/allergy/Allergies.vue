@@ -45,6 +45,12 @@ export default class Allergies extends Vue {
       align: "left",
     },
     {
+      text: "Symptoms",
+      sortable: true,
+      value: "symptoms",
+      align: "left",
+    },
+    {
       text: "Fruits that can cause this allergy",
       sortable: true,
       value: "fruits",
