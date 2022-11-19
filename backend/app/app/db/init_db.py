@@ -28,11 +28,11 @@ def init_db(db: Session) -> None:
     fruits_in = [
         schemas.FruitCreate(
             name="Banana",
-            peel_type=PeelTypeEnum.NOT_EDIBLE
+            peel_type=PeelTypeEnum.NOT_EDIBLE.value
         ),
         schemas.FruitCreate(
             name="Apple",
-            peel_type=PeelTypeEnum.NOT_EDIBLE
+            peel_type=PeelTypeEnum.NOT_EDIBLE.value
         )
     ]
     

@@ -7,6 +7,9 @@ import {
   IFruit,
   IFruitUpdate,
   IFruitCreate,
+  ILotUpdate,
+  ILotCreate,
+  ILot,
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -53,6 +56,7 @@ export const api = {
       token,
     });
   },
+  //Fruits
   async getFruits(token: string) {
     return axios.get<IFruit[]>(`${apiUrl}/api/v1/fruits/`, authHeaders(token));
   },
@@ -64,5 +68,18 @@ export const api = {
   },
   async createFruit(token: string, data: IFruitCreate) {
     return axios.post(`${apiUrl}/api/v1/fruits/`, data, authHeaders(token));
+  },
+  //Lots
+  async getLots(token: string) {
+    return axios.get<ILot[]>(`${apiUrl}/api/v1/lots/`, authHeaders(token));
+  },
+  async getLot(token: string, lotId: number) {
+    return axios.get<ILot>(`${apiUrl}/api/v1/lots/${lotId}`, authHeaders(token));
+  },
+  async updateLot(token: string, lotId: number, data: ILotUpdate) {
+    return axios.put(`${apiUrl}/api/v1/lots/${lotId}`, data, authHeaders(token));
+  },
+  async createLot(token: string, data: ILotCreate) {
+    return axios.post(`${apiUrl}/api/v1/lots/`, data, authHeaders(token));
   },
 };

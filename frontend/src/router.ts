@@ -5,6 +5,9 @@ import RouterComponent from "./components/RouterComponent.vue";
 import Fruits from "./views/main/fruit/Fruits.vue";
 import CreateFruit from "./views/main/fruit/CreateFruit.vue";
 import EditFruit from "./views/main/fruit/EditFruit.vue";
+import Lots from "./views/main/lot/Lots.vue";
+import CreateLot from "./views/main/lot/CreateLot.vue";
+import EditLot from "./views/main/lot/EditLot.vue";
 
 Vue.use(Router);
 
@@ -55,6 +58,20 @@ export default new Router({
               path: "fruits/create",
               name: "main-fruits-create",
               component: CreateFruit,
+            },
+            {
+              path: "lots",
+              component: Lots,
+            },
+            {
+              path: "lots/edit/:id",
+              name: "main-lots-lot-edit",
+              component: EditLot,
+            },
+            {
+              path: "lots/create",
+              name: "main-lots-create",
+              component: CreateLot,
             },
             {
               path: "dashboard",

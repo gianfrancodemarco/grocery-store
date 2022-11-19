@@ -36,4 +36,23 @@ export interface IFruitUpdate {
 }
 
 export interface IFruitCreate {
+  name: string;
+  peel_type: string;  
+}
+
+export interface ILot {
+  id: number;
+  name: string;
+  fruit_id: number;  
+}
+
+export interface ILotUpdate {
+  id: number;
+  name: string;
+  fruit_id: number;  
+}
+
+export interface ILotCreate {
+  name: string;
+  fruit_id: number;  
 }

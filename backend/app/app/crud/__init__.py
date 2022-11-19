@@ -1,6 +1,7 @@
 from .crud_item import item
 from .crud_user import user
 from .crud_fruit import fruit
+from .crud_lot import lot
 
 # For a new basic set of CRUD operations you could just do
 

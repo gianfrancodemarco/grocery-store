@@ -4,7 +4,7 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit Fruit</div>
+            <div class="headline primary--text">Create Fruit</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
@@ -65,8 +65,8 @@ export default class EditFruit extends Vue {
     observer: InstanceType<typeof ValidationObserver>;
   };
 
-  public fruit = {
-    name: "",
+  public fruit: IFruitCreate = {
+    name: null,
     peel_type: "EDIBLE",
   };
 

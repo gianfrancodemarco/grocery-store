@@ -5,38 +5,38 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class FruitBase(BaseModel):
+class LotBase(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
-    peel_type: Optional[str] = None
+    fruit_id: Optional[int] = None
 
 
 # Properties to receive on fruit creation
-class FruitCreate(FruitBase):
+class LotCreate(LotBase):
     name: str
-    peel_type: str
+    fruit_id: int
 
 
 # Properties to receive on fruit update
-class FruitUpdate(FruitBase):
+class LotUpdate(LotBase):
     pass
 
 
 # Properties shared by models stored in DB
-class FruitInDBBase(FruitBase):
+class LotInDBBase(LotBase):
     id: int
     name: str
-    peel_type: PeelTypeEnum
+    fruit_id: int
 
     class Config:
         orm_mode = True
 
 
 # Properties to return to client
-class Fruit(FruitInDBBase):
+class Lot(LotInDBBase):
     pass
 
 
 # Properties properties stored in DB
-class FruitInDB(FruitInDBBase):
+class LotInDB(LotInDBBase):
     pass

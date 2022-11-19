@@ -10,6 +10,14 @@
       <v-layout column fill-height>
         <v-list>
           <v-subheader>Main menu</v-subheader>
+          <v-list-item to="/main/lots">
+            <v-list-item-action>
+              <v-icon>mdi-fruit-cherries</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Lots</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="/main/fruits">
             <v-list-item-action>
               <v-icon>mdi-fruit-cherries</v-icon>

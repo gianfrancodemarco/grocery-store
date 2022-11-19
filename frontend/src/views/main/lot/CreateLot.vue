@@ -4,32 +4,34 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit Fruit</div>
+            <div class="headline primary--text">Create Lot</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
               <div class="subheading secondary--text text--lighten-2">Id</div>
-              <div v-if="fruit" class="title primary--text text--darken-2">
-                {{ fruit.id }}
+              <div v-if="lot" class="title primary--text text--darken-2">
+                {{ "-" }}
               </div>
               <div v-else class="title primary--text text--darken-2">-----</div>
             </div>
             <validation-provider v-slot="{ errors }" name="Name" rules="required">
               <v-text-field
-                v-model="fruit.name"
+                v-model="lot.name"
                 label="Name"
                 required
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Peel type">
+            <validation-provider v-slot="{ errors }" rules="required" name="Fruit id">
               <v-select
-                v-model="fruit.peel_type"
-                :items="['NOT EDIBLE', 'EDIBLE']"
-                label="Peel Type"
+                v-model="lot.fruit_id"
+                :items="fruits"
+                label="Fruit id"
                 :error-messages="errors"
+                :item-text="(item) => `${item.id} - ${item.name}`"
+                item-value="id"
                 dense
-              ></v-select>
+              />
             </validation-provider>
           </v-card-text>
           <v-card-actions>
@@ -45,12 +47,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { IFruitUpdate } from "@/interfaces";
-import { dispatchGetFruit, dispatchUpdateFruit } from "@/store/fruits/actions";
-import { readFruit } from "@/store/fruits/getters";
+import { ILotCreate } from "@/interfaces";
+import { dispatchCreateLot } from "@/store/lots/actions";
+import { dispatchGetFruits } from "@/store/fruits/actions";
+import { readFruits } from "@/store/fruits/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
-
 extend("required", { ...required, message: "{_field_} can not be empty" });
 extend("confirmed", { ...confirmed, message: "Passwords do not match" });
 extend("email", { ...email, message: "Invalid email address" });
@@ -61,14 +63,18 @@ extend("email", { ...email, message: "Invalid email address" });
     ValidationProvider,
   },
 })
-export default class EditFruit extends Vue {
+export default class EditLot extends Vue {
   $refs!: {
     observer: InstanceType<typeof ValidationObserver>;
   };
 
+  public lot: ILotCreate = {
+    name: null,
+    fruit_id: null,
+  };
+
   public async mounted() {
-    console.log(this.$router.path);
-    await dispatchGetFruit(this.$store, { id: this.$route.params.id });
+    await dispatchGetFruits(this.$store);
     this.onReset();
   }
 
@@ -82,21 +88,20 @@ export default class EditFruit extends Vue {
       return;
     }
 
-    const updatedFruit: IFruitUpdate = {
-      id: this.fruit.id,
-      name: this.fruit.name,
-      peel_type: this.fruit.peel_type,
+    const updatedLot: ILotCreate = {
+      name: this.lot.name,
+      fruit_id: this.lot.fruit_id,
     };
 
-    await dispatchUpdateFruit(this.$store, {
-      id: this.fruit.id,
-      fruit: updatedFruit,
+    await dispatchCreateLot(this.$store, {
+      id: this.lot.id,
+      lot: updatedLot,
     });
 
-    this.$router.push("/main/fruits");
+    this.$router.push("/main/lots");
   }
-  get fruit() {
-    return readFruit(this.$store);
+  get fruits() {
+    return readFruits(this.$store);
   }
 }
 </script>
