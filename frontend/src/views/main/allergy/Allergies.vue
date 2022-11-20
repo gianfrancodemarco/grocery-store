@@ -5,7 +5,12 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" to="/main/allergies/create">Create Allergy</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="allergies">
+    <v-data-table
+      :headers="headers"
+      :items="allergies"
+      sort-by="id"
+      :sort-desc="[true]"
+    >
       <!-- eslint-disable-next-line vue/valid-v-slot -->
       <template #item.actions="{ item }">
         <v-btn

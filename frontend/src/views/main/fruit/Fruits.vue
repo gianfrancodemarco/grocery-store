@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" to="/main/fruits/create">Create Fruit</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="fruits">
+    <v-data-table :headers="headers" :items="fruits" sort-by="id" :sort-desc="[true]">
       <!-- eslint-disable-next-line vue/valid-v-slot -->
       <template #item.actions="{ item }">
         <v-btn

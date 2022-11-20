@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" to="/main/lots/create">Create Lot</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="lots">
+    <v-data-table :headers="headers" :items="lots" sort-by="id" :sort-desc="[true]">
       <!-- eslint-disable-next-line vue/valid-v-slot -->
       <template #item.actions="{ item }">
         <v-btn
