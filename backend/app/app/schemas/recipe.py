@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from app.schemas.fruit import Fruit
+from app.enums.recipe_budget_enum import RecipeBudgetEnum
 from pydantic import BaseModel
 
 
@@ -9,19 +10,23 @@ class RecipeBase(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    fruits: Optional[List[Fruit]] = []
+    budget:Optional[str] = None
+
+    fruits: Optional[List[Fruit]] = []   
 
 
 # Properties to receive on Recipe creation
 class RecipeCreate(RecipeBase):
     name: str
     description: str
+    budget: Optional[str]
     fruits: Optional[List[int]]
 
 # Properties to receive on Recipe update
 class RecipeUpdate(RecipeBase):
     id: int = None
-    description: str
+    description: Optional[str]
+    budget: Optional[str]
     fruits: Optional[List[int]]
 
 
@@ -29,6 +34,7 @@ class RecipeUpdate(RecipeBase):
 class RecipeInDBBase(RecipeBase):
     id: int
     name: str
+    budget: RecipeBudgetEnum
     description: str
     fruits: List[Fruit] = []
     

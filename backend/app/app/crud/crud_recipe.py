@@ -14,7 +14,8 @@ class CRUDRecipe(CRUDBase[Recipe, RecipeCreate, RecipeUpdate]):
     def create(self, db: Session, *, obj_in: RecipeCreate) -> Recipe:
         db_obj = Recipe(
             name=obj_in.name,
-            description=obj_in.description
+            description=obj_in.description,
+            budget=obj_in.budget
         )
         db_obj.fruits = db.query(Fruit).filter(Fruit.id.in_(obj_in.fruits)).all()
         db.add(db_obj)

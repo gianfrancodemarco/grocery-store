@@ -51,6 +51,12 @@ export default class Recipes extends Vue {
       align: "left",
     },
     {
+      text: "Budget",
+      sortable: true,
+      value: "budget",
+      align: "left",
+    },
+    {
       text: "Fruits used by this recipe",
       sortable: true,
       value: "fruits",

@@ -1,6 +1,5 @@
 from typing import Optional
 
-from app.enums.peel_type_enum import PeelTypeEnum
 from app.schemas.fruit import Fruit
 from pydantic import BaseModel
 

@@ -20,6 +20,7 @@ class Fruit(Base):
         default=PeelTypeEnum.EDIBLE.value,
         server_default=PeelTypeEnum.EDIBLE.value
     )
+    maximum_stationary_time = Column(Integer, server_default="24")
 
     lots = relationship("Lot")
     allergies = relationship(

@@ -25,8 +25,9 @@ def upgrade():
             sa.Identity(),
             primary_key=True,
         ),
-        sa.Column('name', sa.String(length=100), nullable=True),
+        sa.Column('name', sa.String(length=100), nullable=False),
         sa.Column('description', sa.String(length=1000), nullable=True),
+        sa.Column('budget', sa.Enum('LOW', 'MEDIUM', 'HIGH', name='recipebudgetenum'), server_default='MEDIUM', nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_RECIPE_name'), 'RECIPE', ['name'], unique=False)
