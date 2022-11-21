@@ -5,7 +5,7 @@ import { LotState } from "./state";
 
 const defaultState: LotState = {
   lots: [],
-  lot: null,
+  lot: {},
 };
 
 export const lotsModule = {

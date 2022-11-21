@@ -5,7 +5,7 @@ import { RecipeState } from "./state";
 
 const defaultState: RecipeState = {
   recipes: [],
-  recipe: null,
+  recipe: {},
 };
 
 export const recipesModule = {

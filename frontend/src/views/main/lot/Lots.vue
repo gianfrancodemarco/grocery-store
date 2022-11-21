@@ -16,6 +16,10 @@
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
+      <!-- eslint-disable-next-line vue/valid-v-slot -->
+      <template #item.timestamp_arrival="{ item }">
+        {{ formatDate(item.timestamp_arrival) }}
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -24,6 +28,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { readLots } from "@/store/lots/getters";
 import { dispatchGetLots } from "@/store/lots/actions";
+import { format } from "date-fns";
 
 @Component
 export default class Lots extends Vue {
@@ -47,6 +52,24 @@ export default class Lots extends Vue {
       align: "left",
     },
     {
+      text: "Arrival",
+      sortable: true,
+      value: "timestamp_arrival",
+      align: "left",
+    },
+    {
+      text: "Volume (m^3)",
+      sortable: true,
+      value: "volume",
+      align: "left",
+    },
+    {
+      text: "Weight (kg)",
+      sortable: true,
+      value: "weight",
+      align: "left",
+    },
+    {
       text: "Actions",
       value: "actions",
       sortable: false,
@@ -57,6 +80,9 @@ export default class Lots extends Vue {
   }
   public async mounted() {
     await dispatchGetLots(this.$store);
+  }
+  public formatDate(date) {
+    return format(new Date(date), "yyyy-MM-dd HH:mm:ss");
   }
 }
 </script>

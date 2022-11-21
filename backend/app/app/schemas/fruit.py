@@ -1,6 +1,7 @@
 from typing import Optional
 
 from app.enums.peel_type_enum import PeelTypeEnum
+from app.enums.fruit_size_enum import FruitSizeEnum
 from pydantic import BaseModel
 
 
@@ -30,7 +31,7 @@ class FruitInDBBase(FruitBase):
     name: str
     peel_type: PeelTypeEnum
     maximum_stationary_time: int
-    size: str = None
+    size: FruitSizeEnum
     
     class Config:
         orm_mode = True

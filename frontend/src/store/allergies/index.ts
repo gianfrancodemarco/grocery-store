@@ -5,7 +5,7 @@ import { AllergyState } from "./state";
 
 const defaultState: AllergyState = {
   allergies: [],
-  allergy: null,
+  allergy: {},
 };
 
 export const allergiesModule = {

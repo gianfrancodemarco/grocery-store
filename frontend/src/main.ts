@@ -9,6 +9,9 @@ import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 
+import DatetimePicker from 'vuetify-datetime-picker'
+Vue.use(DatetimePicker)
+
 new Vue({
   router,
   store,

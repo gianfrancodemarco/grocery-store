@@ -23,8 +23,8 @@ services:
     depends_on:
       - oracle
     ports:
-      - "10001:80"
-      - "10002:5678"
+      - "8081:80"
+      - "5678:5678"
     env_file:
       - .env
       - oracle.env
@@ -33,8 +33,8 @@ services:
       dockerfile: backend.dockerfile
     volumes:
       - ./backend/app:/app
-    command: /start-reload.sh
-    #command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:5678 -m uvicorn app.main:app --host 0.0.0.0 --port 80 --reload"]
+    #command: /start-reload.sh
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:5678 -m uvicorn app.main:app --host 0.0.0.0 --port 80 --reload"]
 
   frontend:
     ports:

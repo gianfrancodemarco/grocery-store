@@ -5,7 +5,7 @@ import { FruitState } from "./state";
 
 const defaultState: FruitState = {
   fruits: [],
-  fruit: null,
+  fruit: {},
 };
 
 export const fruitsModule = {
