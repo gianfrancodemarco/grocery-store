@@ -23,8 +23,8 @@ services:
     depends_on:
       - oracle
     ports:
-      - "8081:80"
-      - "5678:5678"
+      - "10001:80"
+      - "10002:5678"
     env_file:
       - .env
       - oracle.env

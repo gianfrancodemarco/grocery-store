@@ -1,6 +1,7 @@
 from app import crud, schemas
 from app.core.config import settings
 from app.enums.peel_type_enum import PeelTypeEnum
+from app.enums.fruit_size_enum import FruitSizeEnum
 from app.enums.recipe_budget_enum import RecipeBudgetEnum
 from sqlalchemy.orm import Session
 
@@ -39,7 +40,8 @@ def init_db(db: Session) -> None:
         ),
         schemas.FruitCreate(
             name="Melon",
-            peel_type=PeelTypeEnum.NOT_EDIBLE.value
+            peel_type=PeelTypeEnum.NOT_EDIBLE.value,
+            size=FruitSizeEnum.BIG.value
         ),
         schemas.FruitCreate(
             name="Orange",
@@ -47,15 +49,37 @@ def init_db(db: Session) -> None:
         ),
         schemas.FruitCreate(
             name="Cranberry",
-            peel_type=PeelTypeEnum.EDIBLE.value
+            peel_type=PeelTypeEnum.EDIBLE.value,
+            size=FruitSizeEnum.LITTLE.value
         )
     ]
-    
+
     for fruit_in in fruits_in:
         fruit = crud.fruit.get_by_name(db, name=fruit_in.name)
         if not fruit:
             crud.fruit.create(
                 db, obj_in=fruit_in
+            )
+
+    lots_in = [
+        schemas.LotCreate(
+            name="Test Lot n.1 of Oranges",
+            timestamp_arrival="2022-10-25 12:10:01",
+            weight="2.5",
+            volume="3.4",
+            fruit_id=crud.fruit.get_by_name(db, name='Orange').id
+        ),
+        schemas.LotCreate(
+            name="Test Lot n.2",
+            fruit_id=crud.fruit.get_by_name(db, name='Cranberry').id
+        )
+    ]
+        
+    for lot_in in lots_in:
+        lot = crud.lot.get_by_name(db, name=lot_in.name)
+        if not lot:
+            crud.lot.create(
+                db, obj_in=lot_in
             )
 
     allergy = crud.allergy.get_by_name(db, name="Grass pollen")

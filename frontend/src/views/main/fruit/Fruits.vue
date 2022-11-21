@@ -47,6 +47,12 @@ export default class Fruits extends Vue {
       align: "left",
     },
     {
+      text: "Maximum stationary time (h)",
+      sortable: true,
+      value: "maximum_stationary_time",
+      align: "left",
+    },
+    {
       text: "Actions",
       value: "actions",
       sortable: false,

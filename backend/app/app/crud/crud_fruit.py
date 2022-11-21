@@ -13,7 +13,9 @@ class CRUDFruit(CRUDBase[Fruit, FruitCreate, FruitUpdate]):
     def create(self, db: Session, *, obj_in: FruitCreate) -> Fruit:
         db_obj = Fruit(
             name=obj_in.name,
-            peel_type=obj_in.peel_type
+            peel_type=obj_in.peel_type,
+            maximum_stationary_time=obj_in.maximum_stationary_time,
+            size=obj_in.size
         )
         db.add(db_obj)
         db.commit()

@@ -13,7 +13,10 @@ class CRUDLot(CRUDBase[Lot, LotCreate, LotUpdate]):
     def create(self, db: Session, *, obj_in: LotCreate) -> Lot:
         db_obj = Lot(
             name=obj_in.name,
-            fruit_id=obj_in.fruit_id
+            fruit_id=obj_in.fruit_id,
+            timestamp_arrival=obj_in.timestamp_arrival,
+            weight=obj_in.weight,
+            volume=obj_in.volume
         )
         db.add(db_obj)
         db.commit()

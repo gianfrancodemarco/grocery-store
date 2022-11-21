@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from app.db.base_class import Base
+from app.enums.fruit_size_enum import FruitSizeEnum
 from app.enums.peel_type_enum import PeelTypeEnum
 from sqlalchemy import Column, Enum, Integer, String
 from sqlalchemy.orm import relationship
@@ -21,7 +22,13 @@ class Fruit(Base):
         server_default=PeelTypeEnum.EDIBLE.value
     )
     maximum_stationary_time = Column(Integer, server_default="24")
-
+    size = Column(
+        Enum(FruitSizeEnum, values_callable=lambda obj: [e.value for e in obj]),
+        nullable=False,
+        default=FruitSizeEnum.MEDIUM.value,
+        server_default=FruitSizeEnum.MEDIUM.value
+    )
+    
     lots = relationship("Lot")
     allergies = relationship(
         "Allergy", secondary=allergies_fruits, back_populates="fruits"

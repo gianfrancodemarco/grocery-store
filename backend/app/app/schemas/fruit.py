@@ -10,17 +10,18 @@ class FruitBase(BaseModel):
     name: Optional[str] = None
     peel_type: Optional[str] = None
     maximum_stationary_time: Optional[int] = None
-
+    size: Optional[str] = None
 
 # Properties to receive on fruit creation
 class FruitCreate(FruitBase):
     name: str
     peel_type: str
     maximum_stationary_time: Optional[int] = None
+    size: Optional[str] = None
 
 # Properties to receive on fruit update
 class FruitUpdate(FruitBase):
-    pass
+    id: int
 
 
 # Properties shared by models stored in DB
@@ -29,7 +30,8 @@ class FruitInDBBase(FruitBase):
     name: str
     peel_type: PeelTypeEnum
     maximum_stationary_time: int
-
+    size: str = None
+    
     class Config:
         orm_mode = True
 

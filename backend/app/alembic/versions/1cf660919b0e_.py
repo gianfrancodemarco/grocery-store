@@ -5,9 +5,10 @@ Revises: 596099df4dee
 Create Date: 2022-11-19 12:17:55.918841
 
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
+from app.db.custom_types import utcnow
+from sqlalchemy.dialects.oracle import TIMESTAMP
 
 # revision identifiers, used by Alembic.
 revision = '1cf660919b0e'
@@ -27,6 +28,9 @@ def upgrade():
             ),
         sa.Column('name', sa.String(50), nullable=True),
         sa.Column('fruit_id', sa.Integer(), nullable=True),
+        sa.Column('timestamp_arrival', TIMESTAMP(), server_default=utcnow(), nullable=False),
+        sa.Column('weight', sa.Float(), server_default="1", nullable=False),
+        sa.Column('volume', sa.Float(), server_default="1", nullable=False),
         sa.ForeignKeyConstraint(['fruit_id'], ['FRUIT.id'], ),
     )
     op.create_index(op.f('ix_LOT_name'), 'LOT', ['name'], unique=False)

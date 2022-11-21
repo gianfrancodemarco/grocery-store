@@ -26,18 +26,21 @@ export interface IUserProfileCreate {
 export interface IFruit {
   id: number;
   name: string;
-  peel_type: string;  
+  peel_type: string;
+  maximum_stationary_time: number;
 }
 
 export interface IFruitUpdate {
   id: number;
   name: string;
   peel_type: string;  
+  maximum_stationary_time: number;
 }
 
 export interface IFruitCreate {
   name: string;
   peel_type: string;  
+  maximum_stationary_time: number;
 }
 
 export interface ILot {

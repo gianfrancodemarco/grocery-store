@@ -24,12 +24,28 @@
             </validation-provider>
             <validation-provider v-slot="{ errors }" rules="required" name="Peel type">
               <v-select
+                class="mt-7"
                 v-model="fruit.peel_type"
                 :items="['NOT EDIBLE', 'EDIBLE']"
                 label="Peel Type"
                 :error-messages="errors"
                 dense
               ></v-select>
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Maximum stationary time"
+              rules="required"
+            >
+              <v-text-field
+                v-model="fruit.maximum_stationary_time"
+                label="Maximum stationary time"
+                required
+                :default="24"
+                :error-messages="errors"
+                :min="0"
+                type="number"
+              />
             </validation-provider>
           </v-card-text>
           <v-card-actions>
@@ -68,6 +84,7 @@ export default class EditFruit extends Vue {
   public fruit: IFruitCreate = {
     name: null,
     peel_type: "EDIBLE",
+    maximum_stationary_time: 24,
   };
 
   public cancel() {
@@ -83,6 +100,7 @@ export default class EditFruit extends Vue {
     const updatedFruit: IFruitCreate = {
       name: this.fruit.name,
       peel_type: this.fruit.peel_type,
+      maximum_stationary_time: this.fruit.maximum_stationary_time,
     };
 
     await dispatchCreateFruit(this.$store, {
