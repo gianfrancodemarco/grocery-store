@@ -42,39 +42,34 @@
               <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="/main/dashboard">
-            <v-list-item-action>
-              <v-icon>mdi-view-dashboard</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Dashboard</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/profile/view">
-            <v-list-item-action>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Profile</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/profile/edit">
-            <v-list-item-action>
-              <v-icon>mdi-pencil</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Edit Profile</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/profile/password">
-            <v-list-item-action>
-              <v-icon>mdi-key</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Change Password</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+          </v-list>
+          <v-list subheader>
+            <v-subheader>Profile</v-subheader>   
+            <v-list-item to="/main/profile/view">
+              <v-list-item-action>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>View Profile</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item to="/main/profile/edit">
+              <v-list-item-action>
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Edit Profile</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item to="/main/profile/password">
+              <v-list-item-action>
+                <v-icon>mdi-key</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Change Password</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         <v-divider></v-divider>
         <v-list v-show="hasAdminAccess" subheader>
           <v-subheader>Admin</v-subheader>
@@ -83,15 +78,7 @@
               <v-icon>mdi-account-multiple</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Manage Users</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/admin/users/create">
-            <v-list-item-action>
-              <v-icon>mdi-account-plus</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Create User</v-list-item-title>
+              <v-list-item-title>Manage Operators</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -176,7 +163,7 @@ import { dispatchUserLogOut } from "@/store/main/actions";
 
 const routeGuardMain = async (to, from, next) => {
   if (to.path === "/main") {
-    next("/main/dashboard");
+    next("/main/lots");
   } else {
     next();
   }

@@ -35,7 +35,7 @@
             </validation-provider>
             <validation-provider v-slot="{ errors }" rules="required" name="Arrival">
               <v-text-field
-                label="Arrived"
+                label="Arrival"
                 :value="computedDateFormatted"
                 @input="value => lot.timestamp_arrival = value"
                 type="datetime-local"
@@ -84,7 +84,6 @@ import { readFruits } from "@/store/fruits/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { format } from "date-fns";
-import { Vue } from 'vue'
 
 extend("required", { ...required, message: "{_field_} can not be empty" });
 

@@ -108,13 +108,6 @@ export default new Router({
               component: CreateRecipe,
             },
             {
-              path: "dashboard",
-              component: () =>
-                import(
-                  /* webpackChunkName: "main-dashboard" */ "./views/main/Dashboard.vue"
-                ),
-            },
-            {
               path: "profile",
               component: RouterComponent,
               redirect: "profile/view",

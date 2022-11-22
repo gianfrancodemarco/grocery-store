@@ -4,7 +4,7 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit User</div>
+            <div class="headline primary--text">Edit Operator</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">

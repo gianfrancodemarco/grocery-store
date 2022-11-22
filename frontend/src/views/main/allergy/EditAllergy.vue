@@ -110,11 +110,12 @@ export default class EditAllergy extends Vue {
     this.$router.push("/main/allergies");
   }
   get allergy() {
-    const allergyFromStore = readAllergy(this.$store);
-    return {
-      ...allergyFromStore,
-      fruits: allergyFromStore?.fruits.map((el) => el.id),
-    };
+    return readAllergy(this.$store)
+    // const allergyFromStore = readAllergy(this.$store);
+    // return {
+    //   ...allergyFromStore,
+    //   fruits: allergyFromStore?.fruits?.map((el) => el.id),
+    // };
   }
   get fruits() {
     return readFruits(this.$store);

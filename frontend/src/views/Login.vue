@@ -33,7 +33,7 @@
                   Incorrect email or password
                 </v-alert>
               </div>
-              <v-col class="caption text-xs-right"
+              <v-col v-if="false" class="caption text-xs-right"
                 ><router-link to="/recover-password"
                   >Forgot your password?</router-link
                 ></v-col
