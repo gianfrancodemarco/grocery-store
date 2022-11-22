@@ -6,3 +6,5 @@ from .fruit import Fruit, FruitCreate, FruitInDB, FruitUpdate
 from .lot import Lot, LotCreate, LotInDB, LotUpdate
 from .allergy import Allergy, AllergyCreate, AllergyInDB, AllergyUpdate
 from .recipe import Recipe, RecipeCreate, RecipeInDB, RecipeUpdate
+from .sensor import Sensor, SensorCreate, SensorInDB, SensorUpdate
+from .sensor_fruit_analysis import SensorFruitAnalysis, SensorFruitAnalysisCreate, SensorFruitAnalysisInDB, SensorFruitAnalysisUpdate
