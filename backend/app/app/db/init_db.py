@@ -132,3 +132,13 @@ def init_db(db: Session) -> None:
                 budget=RecipeBudgetEnum.LOW.value
                 )
             )
+
+    sensor = crud.sensor.get_by_name(db, name="GTX42")
+    if not sensor:
+        crud.sensor.create(
+            db,
+            obj_in=schemas.SensorCreate(
+                name="GTX42",
+                fruit_size=FruitSizeEnum.BIG.value
+            )
+        )

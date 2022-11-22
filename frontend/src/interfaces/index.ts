@@ -28,6 +28,7 @@ export interface IFruit {
   name: string;
   peel_type: string;
   maximum_stationary_time: number;
+  size: string
 }
 
 export interface IFruitUpdate {
@@ -35,12 +36,14 @@ export interface IFruitUpdate {
   name: string;
   peel_type: string;  
   maximum_stationary_time: number;
+  size: string
 }
 
 export interface IFruitCreate {
   name: string;
   peel_type: string;  
   maximum_stationary_time: number;
+  size: string
 }
 
 export interface ILot {
@@ -92,4 +95,29 @@ export interface IRecipeUpdate {
 export interface IRecipeCreate {
   name: string;
   fruits: number[]
+}
+export interface ISensor {
+  id: number;
+  name: string;
+  fruit_size: string
+  medium_energy_consumption: number
+  cost: number
+  brand: string
+}
+
+export interface ISensorUpdate {
+  id: number;
+  name: string;
+  fruit_size: string
+  medium_energy_consumption: number
+  cost: number
+  brand: string
+}
+
+export interface ISensorCreate {
+  name: string;
+  fruit_size: string
+  medium_energy_consumption: number
+  cost: number
+  brand: string
 }

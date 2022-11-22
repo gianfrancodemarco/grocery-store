@@ -16,6 +16,9 @@ import {
   IRecipe,
   IRecipeCreate,
   IRecipeUpdate,
+  ISensor,
+  ISensorCreate,
+  ISensorUpdate,
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -122,6 +125,22 @@ export const api = {
     return axios.put(`${apiUrl}/api/v1/recipes/${allergyId}`, data, authHeaders(token));
   },
   async createRecipe(token: string, data: IRecipeCreate) {
+    return axios.post(`${apiUrl}/api/v1/recipes/`, data, authHeaders(token));
+  },
+  //Sensors
+  async getSensors(token: string) {
+    return axios.get<ISensor[]>(`${apiUrl}/api/v1/sensors/`, authHeaders(token));
+  },
+  async getSensor(token: string, allergyId: number) {
+    return axios.get<ISensor>(
+      `${apiUrl}/api/v1/sensors/${allergyId}`,
+      authHeaders(token),
+    );
+  },
+  async updateSensor(token: string, allergyId: number, data: ISensorUpdate) {
+    return axios.put(`${apiUrl}/api/v1/sensors/${allergyId}`, data, authHeaders(token));
+  },
+  async createSensor(token: string, data: ISensorCreate) {
     return axios.post(`${apiUrl}/api/v1/recipes/`, data, authHeaders(token));
   },
 };

@@ -4,57 +4,48 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit Fruit</div>
+            <div class="headline primary--text">Create Sensor</div>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
               <div class="subheading secondary--text text--lighten-2">Id</div>
-              <div v-if="fruit" class="title primary--text text--darken-2">
-                {{ fruit.id }}
+              <div v-if="sensor" class="title primary--text text--darken-2">
+                {{ "-" }}
               </div>
               <div v-else class="title primary--text text--darken-2">-----</div>
             </div>
             <validation-provider v-slot="{ errors }" name="Name" rules="required">
               <v-text-field
-                v-model="fruit.name"
+                v-model="sensor.name"
                 label="Name"
                 required
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" name="Size" rules="required">
-             <v-select
-                class="mt-7"
-                v-model="fruit.size"
-                :items="['LITTLE', 'MEDIUM', 'BIG']"
-                label="Size"
-                :error-messages="errors"
-                dense
-              />
-            </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Peel type">
-              <v-select
-                class="mt-7"
-                v-model="fruit.peel_type"
-                :items="['NOT EDIBLE', 'EDIBLE']"
-                label="Peel Type"
-                :error-messages="errors"
-                dense
-              ></v-select>
-            </validation-provider>
-            <validation-provider
-              v-slot="{ errors }"
-              name="Maximum stationary time"
-              rules="required"
-            >
+            <validation-provider v-slot="{ errors }" name="medium_energy_consumption" rules="required">
               <v-text-field
-                v-model="fruit.maximum_stationary_time"
-                label="Maximum stationary time"
+                v-model="sensor.medium_energy_consumption"
+                label="Medium Energy Consumption"
                 required
-                :default="24"
                 :error-messages="errors"
-                :min="0"
                 type="number"
+              ></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="cost" rules="required">
+              <v-text-field
+                v-model="sensor.cost"
+                label="Cost"
+                required
+                :error-messages="errors"
+                type="number"
+              ></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Brand" rules="required">
+              <v-text-field
+                v-model="sensor.brand"
+                label="Brand"
+                required
+                :error-messages="errors"
               ></v-text-field>
             </validation-provider>
           </v-card-text>
@@ -71,9 +62,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { IFruitUpdate } from "@/interfaces";
-import { dispatchGetFruit, dispatchUpdateFruit } from "@/store/fruits/actions";
-import { readFruit } from "@/store/fruits/getters";
+import { ISensorCreate } from "@/interfaces";
+import { dispatchCreateSensor } from "@/store/sensors/actions";
+import { dispatchGetFruits } from "@/store/fruits/actions";
+import { readFruits } from "@/store/fruits/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
 
@@ -87,13 +79,21 @@ extend("email", { ...email, message: "Invalid email address" });
     ValidationProvider,
   },
 })
-export default class EditFruit extends Vue {
+export default class EditSensor extends Vue {
   $refs!: {
     observer: InstanceType<typeof ValidationObserver>;
   };
 
+  public sensor: ISensorCreate = {
+    name: null,
+    fruit_size: "MEDIUM",
+    medium_energy_consumption: 1,
+    cost: 50,
+    brand: null
+  };
+
   public async mounted() {
-    await dispatchGetFruit(this.$store, { id: this.$route.params.id });
+    await dispatchGetFruits(this.$store);
   }
 
   public cancel() {
@@ -106,23 +106,20 @@ export default class EditFruit extends Vue {
       return;
     }
 
-    const updatedFruit: IFruitUpdate = {
-      id: this.fruit.id,
-      name: this.fruit.name,
-      size: this.fruit.size,
-      peel_type: this.fruit.peel_type,
-      maximum_stationary_time: this.fruit.maximum_stationary_time,
+    const updatedSensor: ISensorCreate = {
+      name: this.sensor.name,
+      symptoms: this.sensor.symptoms,
+      fruits: this.sensor.fruits,
     };
 
-    await dispatchUpdateFruit(this.$store, {
-      id: this.fruit.id,
-      fruit: updatedFruit,
+    await dispatchCreateSensor(this.$store, {
+      sensor: updatedSensor,
     });
 
-    this.$router.push("/main/fruits");
+    this.$router.push("/main/sensors");
   }
-  get fruit() {
-    return readFruit(this.$store);
+  get fruits() {
+    return readFruits(this.$store);
   }
 }
 </script>

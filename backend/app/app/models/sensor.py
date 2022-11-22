@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Sensor(Base):
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String(100), index=True)
     fruit_size = Column(
         Enum(FruitSizeEnum, values_callable=lambda obj: [e.value for e in obj]),
         nullable=False,

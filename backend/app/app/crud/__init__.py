@@ -4,6 +4,8 @@ from .crud_fruit import fruit
 from .crud_lot import lot
 from .crud_allergy import allergy
 from .crud_recipe import recipe
+from .crud_sensor import sensor
+from .crud_sensor_fruit_analysis import sensor_fruit_analysis
 
 # For a new basic set of CRUD operations you could just do
 

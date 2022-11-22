@@ -8,6 +8,7 @@ import { fruitsModule } from "./fruits";
 import { lotsModule } from "./lots";
 import { allergiesModule } from "./allergies";
 import { recipesModule } from "./recipes";
+import { sensorsModule } from "./sensors";
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ const storeOptions: StoreOptions<State> = {
     lots: lotsModule,
     allergies: allergiesModule,
     recipes: recipesModule,
+    sensors: sensorsModule,
   },
 };
 

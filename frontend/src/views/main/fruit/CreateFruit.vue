@@ -22,6 +22,16 @@
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
+             <validation-provider v-slot="{ errors }" name="Size" rules="required">
+             <v-select
+                class="mt-7"
+                v-model="fruit.size"
+                :items="['LITTLE', 'MEDIUM', 'BIG']"
+                label="Size"
+                :error-messages="errors"
+                dense
+              />
+            </validation-provider>
             <validation-provider v-slot="{ errors }" rules="required" name="Peel type">
               <v-select
                 class="mt-7"
@@ -83,6 +93,7 @@ export default class EditFruit extends Vue {
 
   public fruit: IFruitCreate = {
     name: null,
+    size: "MEDIUM",
     peel_type: "EDIBLE",
     maximum_stationary_time: 24,
   };
@@ -99,6 +110,7 @@ export default class EditFruit extends Vue {
 
     const updatedFruit: IFruitCreate = {
       name: this.fruit.name,
+      size: this.fruit.size,
       peel_type: this.fruit.peel_type,
       maximum_stationary_time: this.fruit.maximum_stationary_time,
     };

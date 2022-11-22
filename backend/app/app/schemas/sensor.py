@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from app.schemas.fruit import Fruit
+from app.enums.fruit_size_enum import FruitSizeEnum
 from pydantic import BaseModel
 
 # Shared properties
@@ -29,11 +29,11 @@ class SensorUpdate(SensorBase):
 
 # Properties shared by models stored in DB
 class SensorInDBBase(SensorBase):
-    id: int = None
-    name: str = None
-    fruit_size: str = None
-    medium_energy_consumption: float = None
-    cost: float = None
+    id: int
+    name: str
+    fruit_size: FruitSizeEnum 
+    medium_energy_consumption: float
+    cost: float
     brand: str = None
 
     class Config:

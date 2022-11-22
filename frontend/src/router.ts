@@ -14,6 +14,10 @@ import EditAllergy from "./views/main/allergy/EditAllergy.vue";
 import Recipes from "./views/main/recipe/Recipes.vue";
 import CreateRecipe from "./views/main/recipe/CreateRecipe.vue";
 import EditRecipe from "./views/main/recipe/EditRecipe.vue";
+import Sensors from "./views/main/sensor/Sensors.vue";
+import CreateSensor from "./views/main/sensor/CreateSensor.vue";
+import EditSensor from "./views/main/sensor/EditSensor.vue";
+
 
 Vue.use(Router);
 
@@ -106,6 +110,20 @@ export default new Router({
               path: "recipes/create",
               name: "main-recipes-create",
               component: CreateRecipe,
+            },
+            {
+              path: "sensors",
+              component: Sensors,
+            },
+            {
+              path: "sensors/edit/:id",
+              name: "main-sensors-sensor-edit",
+              component: EditSensor,
+            },
+            {
+              path: "sensors/create",
+              name: "main-sensors-create",
+              component: CreateSensor,
             },
             {
               path: "profile",

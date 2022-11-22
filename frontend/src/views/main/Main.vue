@@ -42,6 +42,14 @@
               <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item to="/main/sensors">
+            <v-list-item-action>
+              <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Sensors</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           </v-list>
           <v-list subheader>
             <v-subheader>Profile</v-subheader>   

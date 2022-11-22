@@ -1,17 +1,22 @@
 <template>
   <div>
     <v-toolbar light>
-      <v-toolbar-title> Manage Fruits </v-toolbar-title>
+      <v-toolbar-title> Manage Sensors </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" to="/main/fruits/create">Create Fruit</v-btn>
+      <v-btn color="primary" to="/main/sensors/create">Create Sensor</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="fruits" sort-by="id" :sort-desc="[true]">
+    <v-data-table
+      :headers="headers"
+      :items="sensors"
+      sort-by="id"
+      :sort-desc="[true]"
+    >
       <!-- eslint-disable-next-line vue/valid-v-slot -->
       <template #item.actions="{ item }">
         <v-btn
           slot="activator"
           icon
-          :to="{ name: 'main-fruits-fruit-edit', params: { id: item.id } }"
+          :to="{ name: 'main-sensors-sensor-edit', params: { id: item.id } }"
         >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -22,11 +27,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { readFruits } from "@/store/fruits/getters";
-import { dispatchGetFruits } from "@/store/fruits/actions";
+import { readSensors } from "@/store/sensors/getters";
+import { dispatchGetSensors } from "@/store/sensors/actions";
 
 @Component
-export default class Fruits extends Vue {
+export default class Sensors extends Vue {
   public headers = [
     {
       text: "Id",
@@ -41,21 +46,27 @@ export default class Fruits extends Vue {
       align: "left",
     },
     {
-      text: "Peel Type",
+      text: "Fruit size",
       sortable: true,
-      value: "peel_type",
+      value: "fruit_size",
       align: "left",
     },
     {
-      text: "Size",
+      text: "Medium Energy Consumption",
       sortable: true,
-      value: "size",
+      value: "medium_energy_consumption",
       align: "left",
     },
     {
-      text: "Maximum stationary time (h)",
+      text: "Cost",
       sortable: true,
-      value: "maximum_stationary_time",
+      value: "cost",
+      align: "left",
+    },
+    {
+      text: "Brand",
+      sortable: true,
+      value: "brand",
       align: "left",
     },
     {
@@ -64,11 +75,11 @@ export default class Fruits extends Vue {
       sortable: false,
     },
   ];
-  get fruits() {
-    return readFruits(this.$store);
+  get sensors() {
+    return readSensors(this.$store);
   }
   public async mounted() {
-    await dispatchGetFruits(this.$store);
+    await dispatchGetSensors(this.$store);
   }
 }
 </script>
