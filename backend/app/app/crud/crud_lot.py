@@ -16,7 +16,8 @@ class CRUDLot(CRUDBase[Lot, LotCreate, LotUpdate]):
             fruit_id=obj_in.fruit_id,
             timestamp_arrival=obj_in.timestamp_arrival,
             weight=obj_in.weight,
-            volume=obj_in.volume
+            volume=obj_in.volume,
+            ripens_level=obj_in.ripens_level
         )
         db.add(db_obj)
         db.commit()

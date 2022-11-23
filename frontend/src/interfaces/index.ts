@@ -50,17 +50,29 @@ export interface ILot {
   id: number;
   name: string;
   fruit_id: number;  
+  timestamp_arrival: string;
+  volume: number;
+  weight: number;
+  ripens_level: number;
 }
 
 export interface ILotUpdate {
   id: number;
   name: string;
-  fruit_id: number;  
+  fruit_id: number;
+  timestamp_arrival: string;
+  volume: number;
+  weight: number;
+  ripens_level: number;
 }
 
 export interface ILotCreate {
   name: string;
   fruit_id: number;  
+  timestamp_arrival: string;
+  volume: number;
+  weight: number;
+  ripens_level: number;
 }
 
 export interface IAllergy {

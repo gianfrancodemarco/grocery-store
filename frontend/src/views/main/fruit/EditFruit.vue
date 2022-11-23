@@ -55,6 +55,7 @@
                 :error-messages="errors"
                 :min="0"
                 type="number"
+                step="0.01"
               ></v-text-field>
             </validation-provider>
             <validation-provider v-slot="{ errors }" rules="required" name="Base price">
@@ -64,7 +65,8 @@
                 required
                 :error-messages="errors"
                 type="number"
-                min="0"
+                step="0.01"
+                min="0"               
                 hint="A price multiplier"
                 persistent-hint
               />

@@ -15,7 +15,8 @@ class CRUDFruit(CRUDBase[Fruit, FruitCreate, FruitUpdate]):
             name=obj_in.name,
             peel_type=obj_in.peel_type,
             maximum_stationary_time=obj_in.maximum_stationary_time,
-            size=obj_in.size
+            size=obj_in.size,
+            base_price=obj_in.base_price
         )
         db.add(db_obj)
         db.commit()

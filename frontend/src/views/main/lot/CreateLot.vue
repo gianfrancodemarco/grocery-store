@@ -59,6 +59,7 @@
                 required
                 :error-messages="errors"
                 type="number"
+                step="0.01"
                 min="0"
               />
             </validation-provider>
@@ -69,17 +70,17 @@
                 required
                 :error-messages="errors"
                 type="number"
+                step="0.01"
                 min="0"
                 max="1"
                 hint="Goes from 0 (unripe) to 1 (rotten)"
                 persistent-hint
               />
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Price">
+            <validation-provider v-slot="{ errors }" name="Price">
               <v-text-field
                 v-model="lot.price"
                 label="Price"
-                required
                 :error-messages="errors"
                 type="number"
                 disabled
@@ -129,7 +130,8 @@ export default class EditLot extends Vue {
     fruit_id: null,
     timestamp_arrival: new Date(),
     volume: 1,
-    weight: 1
+    weight: 1,
+    ripens_level: 0.5
   };
 
   public async mounted() {
@@ -151,7 +153,8 @@ export default class EditLot extends Vue {
       fruit_id: this.lot.fruit_id,
       timestamp_arrival: format(new Date(this.lot.timestamp_arrival), "yyyy-MM-dd'T'HH:mm:ss"),
       volume: this.lot.volume,
-      weight: this.lot.weight
+      weight: this.lot.weight,
+      ripens_level: this.lot.ripens_level
     };
 
     await dispatchCreateLot(this.$store, {

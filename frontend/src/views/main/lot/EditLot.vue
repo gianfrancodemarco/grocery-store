@@ -59,6 +59,7 @@
                 required
                 :error-messages="errors"
                 type="number"
+                step="0.01"
                 min="0"
               />
             </validation-provider>
@@ -69,6 +70,7 @@
                 required
                 :error-messages="errors"
                 type="number"
+                step="0.01"
                 min="0"
                 max="1"
                 hint="Goes from 0 (unripe) to 1 (rotten)"
