@@ -62,6 +62,31 @@
                 min="0"
               />
             </validation-provider>
+            <validation-provider v-slot="{ errors }" rules="required" name="Ripens level">
+              <v-text-field
+                v-model="lot.ripens_level"
+                label="Ripens level"
+                required
+                :error-messages="errors"
+                type="number"
+                min="0"
+                max="1"
+                hint="Goes from 0 (unripe) to 1 (rotten)"
+                persistent-hint
+              />
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" rules="required" name="Price">
+              <v-text-field
+                v-model="lot.price"
+                label="Price"
+                required
+                :error-messages="errors"
+                type="number"
+                disabled
+                hint="The price will be calculated automatically"
+                persistent-hint
+              />
+            </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -118,7 +143,8 @@ export default class EditLot extends Vue {
       fruit_id: this.lot.fruit_id,
       timestamp_arrival: format(new Date(this.lot.timestamp_arrival), "yyyy-MM-dd'T'HH:mm:ss"),
       volume: this.lot.volume,
-      weight: this.lot.weight
+      weight: this.lot.weight,
+      ripens_level: this.lot.ripens_level
     };
 
     await dispatchUpdateLot(this.$store, {

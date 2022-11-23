@@ -59,6 +59,12 @@ export default class Fruits extends Vue {
       align: "left",
     },
     {
+      text: "Base price",
+      sortable: true,
+      value: "base_price",
+      align: "left",
+    },
+    {
       text: "Actions",
       value: "actions",
       sortable: false,

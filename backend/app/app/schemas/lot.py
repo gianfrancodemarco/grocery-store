@@ -12,6 +12,8 @@ class LotBase(BaseModel):
     timestamp_arrival: Optional[datetime] = None
     weight: Optional[float] = None
     volume: Optional[float] = None
+    ripens_level: Optional[float] = None
+    price: Optional[float] = None
 
     fruit_id: Optional[int] = None
     fruit: Optional[Fruit] = None
@@ -22,6 +24,8 @@ class LotCreate(LotBase):
     timestamp_arrival: Optional[datetime] = None
     weight: Optional[float] = None
     volume: Optional[float] = None
+    ripens_level: Optional[float]
+    price: Optional[float] = None
 
     fruit_id: int
 
@@ -36,8 +40,10 @@ class LotInDBBase(LotBase):
     id: int
     name: str
     timestamp_arrival: datetime
-    weight: float = None
-    volume: float = None
+    weight: float 
+    volume: float 
+    ripens_level: float
+    price: float
 
     fruit_id: int
     fruit: Fruit

@@ -12,6 +12,7 @@ class FruitBase(BaseModel):
     peel_type: Optional[str] = None
     maximum_stationary_time: Optional[int] = None
     size: Optional[str] = None
+    base_price: Optional[float] = None
 
 # Properties to receive on fruit creation
 class FruitCreate(FruitBase):
@@ -19,6 +20,7 @@ class FruitCreate(FruitBase):
     peel_type: str
     maximum_stationary_time: Optional[int] = None
     size: Optional[str] = None
+    base_price: Optional[float]
 
 # Properties to receive on fruit update
 class FruitUpdate(FruitBase):
@@ -32,7 +34,8 @@ class FruitInDBBase(FruitBase):
     peel_type: PeelTypeEnum
     maximum_stationary_time: int
     size: FruitSizeEnum
-    
+    base_price: float
+
     class Config:
         orm_mode = True
 

@@ -70,6 +70,18 @@ export default class Lots extends Vue {
       align: "left",
     },
     {
+      text: "Ripens level (0 to 1)",
+      sortable: true,
+      value: "ripens_level",
+      align: "left",
+    },
+    {
+      text: "Price",
+      sortable: true,
+      value: "price",
+      align: "left",
+    },
+    {
       text: "Actions",
       value: "actions",
       sortable: false,

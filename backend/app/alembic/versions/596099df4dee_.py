@@ -28,6 +28,7 @@ def upgrade():
         sa.Column('peel_type', sa.Enum('EDIBLE', 'NOT EDIBLE', name='peeltypeenum'), server_default='EDIBLE', nullable=False),
         sa.Column('maximum_stationary_time', sa.Integer(), server_default="24", nullable=False),
         sa.Column('size', sa.Enum('LITTLE', 'MEDIUM', 'BIG', name="fruitsizeenum"), server_default='MEDIUM', nullable=False),
+        sa.Column('base_price', sa.Float(), server_default="1")
     )
     op.create_index(op.f('ix_FRUIT_name'), 'FRUIT', ['name'], unique=False)
     

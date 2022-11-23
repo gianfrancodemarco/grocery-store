@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from app.db.base_class import Base
 from app.enums.fruit_size_enum import FruitSizeEnum
 from app.enums.peel_type_enum import PeelTypeEnum
-from sqlalchemy import Column, Enum, Integer, String
+from sqlalchemy import Column, Enum, Float, Integer, String
 from sqlalchemy.orm import relationship
 
 from .allergies_fruits import allergies_fruits
@@ -28,6 +28,8 @@ class Fruit(Base):
         default=FruitSizeEnum.MEDIUM.value,
         server_default=FruitSizeEnum.MEDIUM.value
     )
+    base_price = Column(Float, server_default="0.5")
+
     
     lots = relationship("Lot")
     allergies = relationship(

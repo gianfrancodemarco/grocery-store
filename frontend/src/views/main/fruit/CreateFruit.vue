@@ -57,6 +57,18 @@
                 type="number"
               />
             </validation-provider>
+            <validation-provider v-slot="{ errors }" rules="required" name="Base price">
+              <v-text-field
+                v-model="fruit.base_price"
+                label="Base price"
+                required
+                :error-messages="errors"
+                type="number"
+                min="0"
+                hint="A price multiplier"
+                persistent-hint
+              />
+            </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -96,6 +108,7 @@ export default class EditFruit extends Vue {
     size: "MEDIUM",
     peel_type: "EDIBLE",
     maximum_stationary_time: 24,
+    base_price: 1
   };
 
   public cancel() {
