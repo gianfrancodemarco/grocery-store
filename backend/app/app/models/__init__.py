@@ -6,3 +6,4 @@ from .allergy import Allergy
 from .recipe import Recipe
 from .sensor import Sensor
 from .sensor_fruit_analysis import SensorFruitAnalysis
+from .trigger_auditing import TriggerAuditing

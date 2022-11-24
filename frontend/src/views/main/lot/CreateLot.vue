@@ -128,7 +128,7 @@ export default class EditLot extends Vue {
   public lot: ILotCreate = {
     name: null,
     fruit_id: null,
-    timestamp_arrival: new Date(),
+    timestamp_arrival: new Date(Date.now()).toISOString(),
     volume: 1,
     weight: 1,
     ripens_level: 0.5

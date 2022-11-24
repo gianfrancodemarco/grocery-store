@@ -6,7 +6,6 @@ from app.db.custom_types import utcnow
 from sqlalchemy import Column, Float, ForeignKey, Integer, String
 from sqlalchemy.dialects.oracle import TIMESTAMP
 from sqlalchemy.orm import relationship
-from sqlalchemy import CheckConstraint
 
 if TYPE_CHECKING:
     from .lot import Lot  # noqa: F401

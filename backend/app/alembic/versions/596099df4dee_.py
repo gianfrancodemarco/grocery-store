@@ -7,6 +7,8 @@ Create Date: 2022-11-18 18:57:37.599048
 """
 import sqlalchemy as sa
 from alembic import op
+from app.db.custom_types import utcnow
+from sqlalchemy.dialects.oracle import TIMESTAMP
 
 # revision identifiers, used by Alembic.
 revision = '596099df4dee'
@@ -44,6 +46,7 @@ def upgrade():
         sa.Column('hashed_password', sa.String(200), nullable=False),
         sa.Column('is_active', sa.Boolean(), nullable=True),
         sa.Column('is_superuser', sa.Boolean(), nullable=True),
+        sa.Column('last_read_notifications', TIMESTAMP(), server_default=utcnow(), nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_USER_email'), 'USER', ['email'], unique=True)

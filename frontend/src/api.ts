@@ -19,6 +19,7 @@ import {
   ISensor,
   ISensorCreate,
   ISensorUpdate,
+  INotification,
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -142,5 +143,12 @@ export const api = {
   },
   async createSensor(token: string, data: ISensorCreate) {
     return axios.post(`${apiUrl}/api/v1/recipes/`, data, authHeaders(token));
+  },
+  //Sensors
+  async getNotifications(token: string) {
+    return axios.get<INotification[]>(`${apiUrl}/api/v1/notifications/`, authHeaders(token));
+  },
+  async getNotificationsUnread(token: string) {
+    return axios.get<number>(`${apiUrl}/api/v1/notifications/unread/count`, authHeaders(token));
   },
 };

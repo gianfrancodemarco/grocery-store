@@ -133,3 +133,10 @@ export interface ISensorCreate {
   cost: number
   brand: string
 }
+
+export interface INotification {
+  id: number;
+  trigger_name: string;
+  description: string
+  timestamp: string;
+}

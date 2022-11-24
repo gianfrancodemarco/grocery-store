@@ -15,4 +15,4 @@ class SensorFruitAnalysis(Base):
     lot_id = Column(ForeignKey("LOT.id"), primary_key=True),
     sensor_id = Column(ForeignKey("SENSOR.id"), primary_key=True),
     description = Column(String(1000))
-    UniqueConstraint('sensor_id', 'lot_id'),
+    UniqueConstraint('sensor_id', 'lot_id')

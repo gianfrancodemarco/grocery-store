@@ -8,3 +8,4 @@ from .allergy import Allergy, AllergyCreate, AllergyInDB, AllergyUpdate
 from .recipe import Recipe, RecipeCreate, RecipeInDB, RecipeUpdate
 from .sensor import Sensor, SensorCreate, SensorInDB, SensorUpdate
 from .sensor_fruit_analysis import SensorFruitAnalysis, SensorFruitAnalysisCreate, SensorFruitAnalysisInDB, SensorFruitAnalysisUpdate
+from .trigger_auditing import TriggerAuditing

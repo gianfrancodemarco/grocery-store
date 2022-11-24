@@ -17,7 +17,7 @@ import EditRecipe from "./views/main/recipe/EditRecipe.vue";
 import Sensors from "./views/main/sensor/Sensors.vue";
 import CreateSensor from "./views/main/sensor/CreateSensor.vue";
 import EditSensor from "./views/main/sensor/EditSensor.vue";
-
+import Notifications from "./views/main/notifications/Notifications.vue";
 
 Vue.use(Router);
 
@@ -130,6 +130,10 @@ export default new Router({
               component: RouterComponent,
               redirect: "profile/view",
               children: [
+                {
+                  path: "notifications",
+                  component: Notifications,
+                },
                 {
                   path: "view",
                   component: () =>

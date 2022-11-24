@@ -53,6 +53,24 @@
           </v-list>
           <v-list subheader>
             <v-subheader>Profile</v-subheader>   
+            <v-list-item to="/main/profile/notifications">
+              <v-list-item-action>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title v-if="notificationsUnread">
+                  <v-badge
+                    color="green"
+                    :content="notificationsUnread"
+                  >
+                    View Notifications
+                  </v-badge>
+                </v-list-item-title>
+                <v-list-item-title v-else>
+                    View Notifications
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
             <v-list-item to="/main/profile/view">
               <v-list-item-action>
                 <v-icon>mdi-account</v-icon>
@@ -156,7 +174,6 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-
 import { appName } from "@/env";
 import {
   readDashboardMiniDrawer,
@@ -168,6 +185,8 @@ import {
   commitSetDashboardMiniDrawer,
 } from "@/store/main/mutations";
 import { dispatchUserLogOut } from "@/store/main/actions";
+import { dispatchGetNotificationsUnread } from "@/store/notifications/actions";
+import { readNotificationsUnread } from "@/store/notifications/getters";
 
 const routeGuardMain = async (to, from, next) => {
   if (to.path === "/main") {
@@ -180,6 +199,10 @@ const routeGuardMain = async (to, from, next) => {
 @Component
 export default class Main extends Vue {
   public appName = appName;
+
+  public async mounted(){
+    await dispatchGetNotificationsUnread(this.$store);
+  }
 
   public beforeRouteEnter(to, from, next) {
     routeGuardMain(to, from, next);
@@ -211,6 +234,10 @@ export default class Main extends Vue {
 
   public get hasAdminAccess() {
     return readHasAdminAccess(this.$store);
+  }
+
+  public get notificationsUnread() {
+    return readNotificationsUnread(this.$store)
   }
 
   public async logout() {

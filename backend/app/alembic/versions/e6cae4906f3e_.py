@@ -75,7 +75,7 @@ def upgrade():
                 BEGIN
                 SELECT base_price INTO base_price FROM FRUIT WHERE \:new.fruit_id = FRUIT.id;
                 \:new.price := base_price * \:new.weight * ABS(0.5 - \:new.ripens_level);
-                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('UPDATE_LOT_PRICE', CONCAT(CONCAT(CONCAT('Run trigger UPDATE_LOT_PRICE on lot ', \:new.name), ' new price'), \:new.price));
+                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('UPDATE_LOT_PRICE', CONCAT(CONCAT(CONCAT('Run trigger UPDATE_LOT_PRICE on lot ', \:new.name), ' new price '), \:new.price));
                 END;
             """
         )
