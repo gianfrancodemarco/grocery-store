@@ -28,7 +28,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { readNotifications } from "@/store/notifications/getters";
 import { dispatchGetNotifications, dispatchGetNotificationsUnread } from "@/store/notifications/actions";
 import { format } from "date-fns";
-import { dispatchUpdateUser } from "@/store/admin/actions";
+import { dispatchUpdateUserProfile } from "@/store/main/actions";
 import { readUserProfile } from "@/store/main/getters";
 
 @Component
@@ -70,12 +70,9 @@ export default class Notifications extends Vue {
 
   public async mounted() {
     await dispatchGetNotifications(this.$store);
-    await dispatchUpdateUser(this.$store, {
-      id: this.userProfile.id,
-      user: {
+    await dispatchUpdateUserProfile(this.$store, {
         last_read_notifications: new Date(Date.now()).toISOString()
-      },
-    });
+      });
     await dispatchGetNotificationsUnread(this.$store);
   }
   public formatDate(date) {

@@ -1,14 +1,14 @@
+from datetime import datetime
 from typing import Any, List
-
-from fastapi import APIRouter, Body, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
-from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
 from app.api import deps
 from app.core.config import settings
 from app.utils import send_new_account_email
+from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi.encoders import jsonable_encoder
+from pydantic.networks import EmailStr
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -58,6 +58,7 @@ def update_user_me(
     password: str = Body(None),
     full_name: str = Body(None),
     email: EmailStr = Body(None),
+    last_read_notifications: datetime = Body(None),
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -71,6 +72,8 @@ def update_user_me(
         user_in.full_name = full_name
     if email is not None:
         user_in.email = email
+    if last_read_notifications is not None:
+        user_in.last_read_notifications = last_read_notifications
     user = crud.user.update(db, db_obj=current_user, obj_in=user_in)
     return user
 

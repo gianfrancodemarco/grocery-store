@@ -66,17 +66,17 @@ def upgrade():
     op.execute(
         text(
             """
-                CREATE OR REPLACE
-                TRIGGER UPDATE_LOT_PRICE
-                BEFORE UPDATE OR INSERT ON LOT
-                FOR EACH ROW
-                DECLARE 
-                base_price NUMBER;
-                BEGIN
-                SELECT base_price INTO base_price FROM FRUIT WHERE \:new.fruit_id = FRUIT.id;
-                \:new.price := base_price * \:new.weight * ABS(0.5 - \:new.ripens_level);
-                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('UPDATE_LOT_PRICE', CONCAT(CONCAT(CONCAT('Run trigger UPDATE_LOT_PRICE on lot ', \:new.name), ' new price '), \:new.price));
-                END;
+            CREATE OR REPLACE
+            TRIGGER UPDATE_LOT_PRICE
+            BEFORE INSERT OR UPDATE OF WEIGHT, RIPENS_LEVEL ON LOT
+            FOR EACH ROW
+            DECLARE
+            base_price NUMBER;
+            BEGIN
+            SELECT base_price INTO base_price FROM FRUIT WHERE \:new.fruit_id = FRUIT.id;
+            \:new.price := base_price * \:new.weight * (1 - ABS(0.5 - \:new.ripens_level));
+            INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('UPDATE_LOT_PRICE', CONCAT(CONCAT(CONCAT('Run trigger UPDATE_LOT_PRICE on lot ', \:new.name), ' new price '), \:new.price));
+            END;
             """
         )
     )
@@ -84,16 +84,14 @@ def upgrade():
     op.execute(
         text(
             """
-                CREATE OR REPLACE
-                TRIGGER UPDATE_LOT_PRICE_ON_BASE_PRICE_CHANGE
-                BEFORE UPDATE ON FRUIT
-                FOR EACH ROW
-                DECLARE 
-                base_price NUMBER;
-                BEGIN
-                SELECT base_price INTO base_price FROM FRUIT WHERE \:new.fruit_id = FRUIT.id;
-                \:new.price \:= base_price * \:new.weight * (1 - ABS(0.5 - \:new.ripens_level));
-                END;
+            CREATE OR REPLACE TRIGGER UPDATE_LOT_PRICE_ON_BASE_PRICE_CHANGE
+            AFTER UPDATE OF base_price ON FRUIT
+            FOR EACH ROW
+            BEGIN
+            UPDATE LOT SET PRICE = \:new.base_price * LOT.weight * (1 - ABS(0.5 - LOT.ripens_level))
+            WHERE LOT.fruit_id = \:new.id;
+            INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('UPDATE_LOT_PRICE_ON_BASE_PRICE_CHANGE', CONCAT('Updated all prices for lots of ', \:new.name));
+            END;
             """
         )
     )
