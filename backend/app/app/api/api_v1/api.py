@@ -1,5 +1,5 @@
 from app.api.api_v1.endpoints import (allergies, fruits, items, login, lots,
-                                      users, recipes, sensors, notifications, utils)
+                                      users, recipes, sensors, notifications, sensor_fruit_analysis, utils)
 from fastapi import APIRouter
 
 api_router = APIRouter()
@@ -13,3 +13,4 @@ api_router.include_router(allergies.router, prefix="/allergies", tags=["allergie
 api_router.include_router(recipes.router, prefix="/recipes", tags=["recipes"])
 api_router.include_router(sensors.router, prefix="/sensors", tags=["sensors"])
 api_router.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
+api_router.include_router(sensor_fruit_analysis.router, prefix="/analysiss", tags=["analysiss"])

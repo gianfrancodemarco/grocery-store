@@ -140,3 +140,24 @@ export interface INotification {
   description: string
   timestamp: string;
 }
+
+export interface IAnalysis {
+  id: number;
+  lot_id: number;
+  sensor_id: number;
+  description: string
+}
+
+export interface IAnalysisUpdate {
+  id: number;
+  lot_id: number;
+  sensor_id: number;
+  description: string
+}
+
+export interface IAnalysisCreate {
+  id: number;
+  lot_id: number;
+  sensor_id: number;
+  description: string
+}

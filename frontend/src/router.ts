@@ -18,6 +18,10 @@ import Sensors from "./views/main/sensor/Sensors.vue";
 import CreateSensor from "./views/main/sensor/CreateSensor.vue";
 import EditSensor from "./views/main/sensor/EditSensor.vue";
 import Notifications from "./views/main/notifications/Notifications.vue";
+import Analysis from "./views/main/analysis/Analysis.vue";
+import CreateAnalysis from "./views/main/analysis/CreateAnalysis.vue";
+import EditAnalysis from "./views/main/analysis/EditAnalysis.vue";
+
 
 Vue.use(Router);
 
@@ -124,6 +128,20 @@ export default new Router({
               path: "sensors/create",
               name: "main-sensors-create",
               component: CreateSensor,
+            },
+            {
+              path: "analysiss",
+              component: Analysis,
+            },
+            {
+              path: "analysiss/edit/:id",
+              name: "main-analysis-analysis-edit",
+              component: EditAnalysis,
+            },
+            {
+              path: "analysiss/create",
+              name: "main-analysis-create",
+              component: CreateAnalysis,
             },
             {
               path: "profile",

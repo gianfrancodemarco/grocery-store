@@ -20,6 +20,9 @@ import {
   ISensorCreate,
   ISensorUpdate,
   INotification,
+  IAnalysis,
+  IAnalysisCreate,
+  IAnalysisUpdate
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -142,13 +145,29 @@ export const api = {
     return axios.put(`${apiUrl}/api/v1/sensors/${allergyId}`, data, authHeaders(token));
   },
   async createSensor(token: string, data: ISensorCreate) {
-    return axios.post(`${apiUrl}/api/v1/recipes/`, data, authHeaders(token));
+    return axios.post(`${apiUrl}/api/v1/sensors/`, data, authHeaders(token));
   },
-  //Sensors
+  //Notifications
   async getNotifications(token: string) {
     return axios.get<INotification[]>(`${apiUrl}/api/v1/notifications/`, authHeaders(token));
   },
   async getNotificationsUnread(token: string) {
     return axios.get<number>(`${apiUrl}/api/v1/notifications/unread/count`, authHeaders(token));
+  },
+  //Analysis
+  async getAnalysiss(token: string) {
+    return axios.get<IAnalysis[]>(`${apiUrl}/api/v1/analysiss/`, authHeaders(token));
+  },
+  async getAnalysis(token: string, allergyId: number) {
+    return axios.get<IAnalysis>(
+      `${apiUrl}/api/v1/analysiss/${allergyId}`,
+      authHeaders(token),
+    );
+  },
+  async updateAnalysis(token: string, allergyId: number, data: IAnalysisUpdate) {
+    return axios.put(`${apiUrl}/api/v1/analysiss/${allergyId}`, data, authHeaders(token));
+  },
+  async createAnalysis(token: string, data: IAnalysisCreate) {
+    return axios.post(`${apiUrl}/api/v1/analysiss/`, data, authHeaders(token));
   },
 };

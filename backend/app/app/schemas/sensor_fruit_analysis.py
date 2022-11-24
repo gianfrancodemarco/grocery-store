@@ -10,11 +10,11 @@ class SensorFruitAnalysisBase(BaseModel):
     id: Optional[int] = None
     description: Optional[str] = None
 
-    sensor_id: int
-    sensor: Sensor
+    sensor_id: int = None
+    sensor: Optional[Sensor] = None
 
-    lot_id: int
-    lot: Lot
+    lot_id: int = None
+    lot: Optional[Lot] = None
 
 # Properties to receive on lot creation
 class SensorFruitAnalysisCreate(SensorFruitAnalysisBase):
