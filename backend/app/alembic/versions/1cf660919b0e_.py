@@ -9,6 +9,7 @@ import sqlalchemy as sa
 from alembic import op
 from app.db.custom_types import utcnow
 from sqlalchemy.dialects.oracle import TIMESTAMP
+from sqlalchemy.sql import expression
 
 # revision identifiers, used by Alembic.
 revision = '1cf660919b0e'
@@ -33,6 +34,8 @@ def upgrade():
         sa.Column('volume', sa.Float(), server_default="1", nullable=False),
         sa.Column('ripens_level', sa.Float(), server_default="0.5", nullable=False),
         sa.Column('price', sa.Float(), server_default="1", nullable=False),
+        sa.Column('on_display', sa.Boolean(), server_default=expression.false(), nullable=False),
+        sa.Column('expired', sa.Boolean(), server_default=expression.false(), nullable=False),
         sa.ForeignKeyConstraint(['fruit_id'], ['FRUIT.id'], ),
     )
     op.create_index(op.f('ix_LOT_name'), 'LOT', ['name'], unique=False)

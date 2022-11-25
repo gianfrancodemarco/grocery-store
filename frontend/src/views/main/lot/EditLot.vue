@@ -4,7 +4,15 @@
       <form @submit.prevent="onSubmit" @reset.prevent="onReset">
         <v-card class="ma-3 pa-3">
           <v-card-title primary-title>
-            <div class="headline primary--text">Edit Lot</div>
+            <div class="headline primary--text">Edit Lot </div>
+            <v-spacer/>
+            <div class="headline primary--text mr-4">{{lot.on_display ? "On Display" : "Not on display"}}</div>
+            <v-btn 
+              color="primary" 
+              @click="toggleLotOnDisplay"
+            > 
+            {{lot.on_display ? "Remove from display" : "Put on display"}} 
+            </v-btn>
           </v-card-title>
           <v-card-text>
             <div class="my-3">
@@ -50,6 +58,7 @@
                 :error-messages="errors"
                 type="number"
                 min="0"
+                step="0.01"
               />
             </validation-provider>
             <validation-provider v-slot="{ errors }" rules="required" name="Weight">
@@ -89,11 +98,21 @@
                 persistent-hint
               />
             </validation-provider>
+            <validation-provider v-slot="{ errors }" rules="required" name="Expired">
+              <v-text-field
+                class="mt-6"
+                v-model="lot.expired"
+                label="Expired"
+                :error-messages="errors"
+                disabled
+                dense
+              />
+            </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="cancel">Cancel</v-btn>
-            <v-btn :disabled="invalid" type="submit"> Save </v-btn>
+            <v-btn :disabled="invalid" type="submit" color="primary"> Save </v-btn>
           </v-card-actions>
         </v-card>
       </form>
@@ -133,6 +152,23 @@ export default class EditLot extends Vue {
   public cancel() {
     this.$router.back();
   }
+  
+  public async toggleLotOnDisplay(){
+    
+    const updatedLot: ILotUpdate = {
+      id: this.lot.id,
+      on_display: !this.lot.on_display
+    };
+
+    await dispatchUpdateLot(this.$store, {
+      id: this.lot.id,
+      lot: updatedLot,
+    });
+
+    await dispatchGetLot(this.$store, { id: this.$route.params.id });
+
+  }
+  
   public async onSubmit() {
     const success = await this.$refs.observer.validate();
     if (!success) {

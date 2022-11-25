@@ -51,7 +51,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="cancel">Cancel</v-btn>
-            <v-btn :disabled="invalid" type="submit"> Save </v-btn>
+            <v-btn :disabled="invalid" type="submit" color="primary"> Save </v-btn>
           </v-card-actions>
         </v-card>
       </form>

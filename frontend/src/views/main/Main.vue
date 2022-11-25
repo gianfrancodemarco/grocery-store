@@ -52,7 +52,7 @@
           </v-list-item>
           <v-list-item to="/main/analysiss">
             <v-list-item-action>
-              <v-icon>mdi-leak</v-icon>
+              <v-icon>mdi-ab-testing</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Analysis</v-list-item-title>

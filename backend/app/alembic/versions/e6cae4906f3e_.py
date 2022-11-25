@@ -118,6 +118,66 @@ def upgrade():
         )
     )
 
+    op.execute(
+        text(
+            """
+            CREATE OR REPLACE PROCEDURE CHECK_AND_UPDATE_LOT_EXPIRATION AS
+            COUNT_UPDATED_LOT NUMBER;
+            BEGIN
+
+            SELECT COUNT(*) INTO COUNT_UPDATED_LOT 
+            FROM LOT
+            INNER JOIN FRUIT ON FRUIT.ID = LOT.FRUIT_ID
+            WHERE (TIMESTAMP_ARRIVAL + FRUIT.MAXIMUM_STATIONARY_TIME * interval '1' hour) < CURRENT_DATE AND LOT.EXPIRED != 1;
+            
+            UPDATE
+            ( 
+                SELECT * FROM LOT
+                INNER JOIN FRUIT ON FRUIT.ID = LOT.FRUIT_ID
+                WHERE (TIMESTAMP_ARRIVAL + FRUIT.MAXIMUM_STATIONARY_TIME * interval '1' hour) < CURRENT_DATE AND LOT.EXPIRED != 1
+            ) T 
+            SET T.EXPIRED = 1, T.ON_DISPLAY = 0;
+
+            IF COUNT_UPDATED_LOT > 0 THEN
+                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('CHECK_AND_UPDATE_LOT_EXPIRATION', 'Update expired lots.');
+            END IF;
+            END;
+            """
+        )
+    )
+
+    op.execute(
+        text(
+            """
+            BEGIN 
+            dbms_scheduler.create_job ( 
+                job_name => 'CHECK_AND_UPDATE_LOT_EXPIRATION_JOB', 
+                job_type => 'PLSQL_BLOCK', 
+                job_action => 'CHECK_AND_UPDATE_LOT_EXPIRATION();', 
+                enabled => true,   
+                start_date        => SYSTIMESTAMP,
+                repeat_interval => 'FREQ=MINUTELY;INTERVAL=1'
+            );
+            END;
+            """
+        )
+    )
+
+    op.execute(
+        text(
+            """
+            CREATE OR REPLACE TRIGGER CHECK_ON_DISPLAY_ON_EXPIRED_LOT
+            BEFORE UPDATE OR INSERT ON LOT
+            FOR EACH ROW
+            BEGIN
+            IF :new.expired = 1 AND :new.on_display = 1 THEN
+                raise_application_error(-20042, 'Cannot put on display an expired lot');
+            END IF;
+            END;
+            """
+        )
+    )
+
     # ### end Alembic commands ###
 
 

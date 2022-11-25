@@ -5,7 +5,13 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" to="/main/lots/create">Create Lot</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="lots" sort-by="id" :sort-desc="[true]">
+    <v-data-table 
+      :headers="headers"
+      :items="lots" 
+      sort-by="id" 
+      :sort-desc="[true]"
+      :item-class="itemRowBackground"
+    >
       <!-- eslint-disable-next-line vue/valid-v-slot -->
       <template #item.actions="{ item }">
         <v-btn
@@ -23,6 +29,14 @@
     </v-data-table>
   </div>
 </template>
+
+<style>
+
+.background-on-display{
+  background-color: #F0F4C3;
+}
+
+</style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
@@ -82,6 +96,18 @@ export default class Lots extends Vue {
       align: "left",
     },
     {
+      text: "On display",
+      sortable: true,
+      value: "on_display",
+      align: "left",
+    },
+    {
+      text: "Expired",
+      sortable: true,
+      value: "expired",
+      align: "left",
+    },
+    {
       text: "Actions",
       value: "actions",
       sortable: false,
@@ -95,6 +121,9 @@ export default class Lots extends Vue {
   }
   public formatDate(date) {
     return format(new Date(date), "yyyy-MM-dd HH:mm:ss");
+  }
+  public itemRowBackground(item) {
+     return item.on_display ? 'background-on-display' : ''
   }
 }
 </script>

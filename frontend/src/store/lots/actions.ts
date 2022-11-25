@@ -35,44 +35,62 @@ export const actions = {
     context: MainContext,
     payload: { id: number; lot: ILotUpdate },
   ) {
-    try {
-      const loadingNotification = { content: "saving", showProgress: true };
-      commitAddNotification(context, loadingNotification);
-      const response = (
-        await Promise.all([
-          api.updateLot(context.rootState.main.token, payload.id, payload.lot),
-          await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
-        ])
-      )[0];
+    const loadingNotification = { content: "saving", showProgress: true };
+    commitAddNotification(context, loadingNotification);
+    
+    api.updateLot(context.rootState.main.token, payload.id, payload.lot)
+    .then(response => {
       commitSetLot(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Lot successfully updated",
+        content: "Analysis successfully updated",
         color: "success",
       });
-    } catch (error) {
-      await dispatchCheckApiError(context, error);
-    }
+    })
+    .catch(error => {
+      commitRemoveNotification(context, loadingNotification);
+
+      if (error?.response?.data?.detail){
+        commitAddNotification(context, {
+          content: error.response.data.detail,
+          color: "error",
+        });
+      } else {
+        commitAddNotification(context, {
+          content: "Generic error",
+          color: "error",
+        });
+      }
+    })
   },
   async actionCreateLot(context: MainContext, payload: { lot: ILotCreate }) {
-    try {
-      const loadingNotification = { content: "saving", showProgress: true };
-      commitAddNotification(context, loadingNotification);
-      const response = (
-        await Promise.all([
-          api.createLot(context.rootState.main.token, payload.lot),
-          await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
-        ])
-      )[0];
+    const loadingNotification = { content: "saving", showProgress: true };
+    commitAddNotification(context, loadingNotification);
+    
+    api.createLot(context.rootState.main.token, payload.lot)
+    .then(response => {
       commitSetLot(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Lot successfully created",
+        content: "Analysis successfully updated",
         color: "success",
       });
-    } catch (error) {
-      await dispatchCheckApiError(context, error);
-    }
+    })
+    .catch(error => {
+      commitRemoveNotification(context, loadingNotification);
+
+      if (error?.response?.data?.detail){
+        commitAddNotification(context, {
+          content: error.response.data.detail,
+          color: "error",
+        });
+      } else {
+        commitAddNotification(context, {
+          content: "Generic error",
+          color: "error",
+        });
+      }
+    })
   },
 };
 

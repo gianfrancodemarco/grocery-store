@@ -1,10 +1,10 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-
+import sqlalchemy
 from app import crud, models, schemas
 from app.api import deps
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -41,7 +41,11 @@ def create_lot(
     """
     Create new item.
     """
-    lot = crud.lot.create(db=db, obj_in=lot_in)
+    try:
+        lot = crud.lot.create(db=db, obj_in=lot_in)
+    except sqlalchemy.exc.DatabaseError as exc:
+        raise HTTPException(status_code=400, detail=exc.args[0])
+
     return lot
 
 
@@ -59,7 +63,12 @@ def update_lot(
     lot = crud.lot.get(db=db, id=id)
     if not lot:
         raise HTTPException(status_code=404, detail="Item not found")
-    lot = crud.lot.update(db=db, db_obj=lot, obj_in=lot_in)
+
+    try:
+        lot = crud.lot.update(db=db, db_obj=lot, obj_in=lot_in)
+    except sqlalchemy.exc.DatabaseError as exc:
+        raise HTTPException(status_code=400, detail=exc.args[0])
+
     return lot
 
 

@@ -14,6 +14,8 @@ class LotBase(BaseModel):
     volume: Optional[float] = None
     ripens_level: Optional[float] = None
     price: Optional[float] = None
+    on_display: Optional[bool] = None
+    expired: Optional[bool] = None
 
     fruit_id: Optional[int] = None
     fruit: Optional[Fruit] = None
@@ -26,6 +28,8 @@ class LotCreate(LotBase):
     volume: Optional[float] = None
     ripens_level: Optional[float]
     price: Optional[float] = None
+    on_display: Optional[bool] = None
+    expired: Optional[bool] = None
 
     fruit_id: int
 
@@ -44,6 +48,8 @@ class LotInDBBase(LotBase):
     volume: float 
     ripens_level: float
     price: float
+    on_display: bool
+    expired: bool
 
     fruit_id: int
     fruit: Fruit
