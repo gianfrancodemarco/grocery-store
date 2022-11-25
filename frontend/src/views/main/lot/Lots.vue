@@ -36,6 +36,9 @@
   background-color: #F0F4C3;
 }
 
+.background-expired{
+  background-color: #BDBDBD;
+}
 </style>
 
 <script lang="ts">
@@ -123,7 +126,11 @@ export default class Lots extends Vue {
     return format(new Date(date), "yyyy-MM-dd HH:mm:ss");
   }
   public itemRowBackground(item) {
-     return item.on_display ? 'background-on-display' : ''
+    if (item.expired)
+      return 'background-expired'
+
+    if (item.on_display)
+      return 'background-on-display'
   }
 }
 </script>
