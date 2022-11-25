@@ -96,6 +96,28 @@ def upgrade():
         )
     )
 
+    op.execute(
+        text(
+            """
+            CREATE OR REPLACE TRIGGER CHECK_SENSOR_TYPE
+            BEFORE UPDATE OR INSERT ON SENSOR_FRUIT_ANALYSIS
+            FOR EACH ROW
+            DECLARE
+            fruit_id NUMBER;
+            lot_fruit_size VARCHAR2(10);
+            sensor_fruit_size VARCHAR2(10);
+            BEGIN
+            SELECT fruit_id INTO fruit_id FROM LOT WHERE LOT.id = \:new.lot_id;
+            SELECT "size" INTO lot_fruit_size FROM FRUIT WHERE FRUIT.id = fruit_id;
+            SELECT fruit_size INTO sensor_fruit_size FROM SENSOR WHERE SENSOR.id = \:new.sensor_id;
+            IF sensor_fruit_size != lot_fruit_size THEN
+                raise_application_error(-20042, 'Sensor fruit size and fruit size mismatch');
+            END IF;
+            END;
+            """
+        )
+    )
+
     # ### end Alembic commands ###
 
 

@@ -45,6 +45,8 @@ def create_sensor_fruit_analysis(
         sensor_fruit_analysis = crud.sensor_fruit_analysis.create(db=db, obj_in=sensor_fruit_analysis_in)
     except sqlalchemy.exc.IntegrityError:
         raise HTTPException(status_code=400, detail="Integrity error. An analysis already exist with those sensor_id and lot_id")
+    except sqlalchemy.exc.DatabaseError as exc:
+        raise HTTPException(status_code=400, detail=exc.args[0])
 
     return sensor_fruit_analysis
 

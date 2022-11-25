@@ -40,14 +40,23 @@
                 type="number"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" name="Brand" rules="required">
+            <validation-provider v-slot="{ errors }" name="Brand">
               <v-text-field
                 v-model="sensor.brand"
                 label="Brand"
-                required
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Size" rules="required">
+            <v-select
+              class="mt-7"
+              v-model="sensor.fruit_size"
+              :items="['LITTLE', 'MEDIUM', 'BIG']"
+              label="Size"
+              :error-messages="errors"
+              dense
+            />
+          </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -64,8 +73,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import { ISensorCreate } from "@/interfaces";
 import { dispatchCreateSensor } from "@/store/sensors/actions";
-import { dispatchGetFruits } from "@/store/fruits/actions";
-import { readFruits } from "@/store/fruits/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
 
@@ -92,10 +99,6 @@ export default class EditSensor extends Vue {
     brand: null
   };
 
-  public async mounted() {
-    await dispatchGetFruits(this.$store);
-  }
-
   public cancel() {
     this.$router.back();
   }
@@ -108,8 +111,10 @@ export default class EditSensor extends Vue {
 
     const updatedSensor: ISensorCreate = {
       name: this.sensor.name,
-      symptoms: this.sensor.symptoms,
-      fruits: this.sensor.fruits,
+      fruit_size: this.sensor.fruit_size,
+      medium_energy_consumption: this.sensor.medium_energy_consumption,
+      cost: this.sensor.cost,
+      brand: this.sensor.brand,
     };
 
     await dispatchCreateSensor(this.$store, {
@@ -117,9 +122,6 @@ export default class EditSensor extends Vue {
     });
 
     this.$router.push("/main/sensors");
-  }
-  get fruits() {
-    return readFruits(this.$store);
   }
 }
 </script>

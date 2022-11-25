@@ -20,7 +20,7 @@
                 :items="sensors"
                 label="Sensor"
                 :error-messages="errors"
-                :item-text="(item) => `${item.id} - ${item.name}`"
+                :item-text="(item) => `${item.id} - ${item.name}, for ${item.fruit_size} fruits`"
                 item-value="id"
                 dense
               />
@@ -31,7 +31,7 @@
                 :items="lots"
                 label="Lot id"
                 :error-messages="errors"
-                :item-text="(item) => `${item.id} - ${item.name}`"
+                :item-text="(item) => `${item.id} - ${item.name} of ${item.fruit.size} fruits`"
                 item-value="id"
                 dense
               />

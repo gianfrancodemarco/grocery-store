@@ -10,7 +10,7 @@
             <div class="my-3">
               <div class="subheading secondary--text text--lighten-2">Id</div>
               <div v-if="sensor" class="title primary--text text--darken-2">
-                {{ sensor.id }}
+                {{ "-" }}
               </div>
               <div v-else class="title primary--text text--darken-2">-----</div>
             </div>
@@ -22,27 +22,41 @@
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Symptoms">
+            <validation-provider v-slot="{ errors }" name="medium_energy_consumption" rules="required">
               <v-text-field
-                v-model="sensor.symptoms"
-                label="Symptoms"
+                v-model="sensor.medium_energy_consumption"
+                label="Medium Energy Consumption"
                 required
+                :error-messages="errors"
+                type="number"
+              ></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="cost" rules="required">
+              <v-text-field
+                v-model="sensor.cost"
+                label="Cost"
+                required
+                :error-messages="errors"
+                type="number"
+              ></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Brand">
+              <v-text-field
+                v-model="sensor.brand"
+                label="Brand"
                 :error-messages="errors"
               ></v-text-field>
             </validation-provider>
-            <validation-provider v-slot="{ errors }" name="Fruits">
-              <v-select
-                class="mt-7"
-                v-model="sensor.fruits"
-                :items="fruits"
-                multiple
-                label="Fruits that can cause this sensor"
-                :error-messages="errors"
-                :item-text="(item) => `${item.id} - ${item.name}`"
-                item-value="id"
-                dense
-              />
-            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Size" rules="required">
+            <v-select
+              class="mt-7"
+              v-model="sensor.fruit_size"
+              :items="['LITTLE', 'MEDIUM', 'BIG']"
+              label="Size"
+              :error-messages="errors"
+              dense
+            />
+          </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -58,9 +72,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { ISensorUpdate } from "@/interfaces";
-import { dispatchGetSensor, dispatchUpdateSensor } from "@/store/sensors/actions";
-import { dispatchGetFruits } from "@/store/fruits/actions";
-import { readFruits } from "@/store/fruits/getters";
+import { dispatchUpdateSensor } from "@/store/sensors/actions";
+import { dispatchGetSensor } from "@/store/sensors/actions";
 import { readSensor } from "@/store/sensors/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
@@ -82,7 +95,6 @@ export default class EditSensor extends Vue {
 
   public async mounted() {
     await dispatchGetSensor(this.$store, { id: this.$route.params.id });
-    await dispatchGetFruits(this.$store);
   }
 
   public cancel() {
@@ -98,8 +110,10 @@ export default class EditSensor extends Vue {
     const updatedSensor: ISensorUpdate = {
       id: this.sensor.id,
       name: this.sensor.name,
-      symptoms: this.sensor.symptoms,
-      fruits: this.sensor.fruits,
+      fruit_size: this.sensor.fruit_size,
+      medium_energy_consumption: this.sensor.medium_energy_consumption,
+      cost: this.sensor.cost,
+      brand: this.sensor.brand,
     };
 
     await dispatchUpdateSensor(this.$store, {
@@ -110,15 +124,7 @@ export default class EditSensor extends Vue {
     this.$router.push("/main/sensors");
   }
   get sensor() {
-    return readSensor(this.$store)
-    // const sensorFromStore = readSensor(this.$store);
-    // return {
-    //   ...sensorFromStore,
-    //   fruits: sensorFromStore?.fruits?.map((el) => el.id),
-    // };
-  }
-  get fruits() {
-    return readFruits(this.$store);
+    return readSensor(this.$store);
   }
 }
 </script>
