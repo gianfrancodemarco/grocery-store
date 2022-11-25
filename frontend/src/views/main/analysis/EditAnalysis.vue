@@ -14,34 +14,39 @@
               </div>
               <div v-else class="title primary--text text--darken-2">-----</div>
             </div>
-            <validation-provider v-slot="{ errors }" name="Name" rules="required">
-              <v-text-field
-                v-model="analysis.name"
-                label="Name"
-                required
-                :error-messages="errors"
-              ></v-text-field>
-            </validation-provider>
-            <validation-provider v-slot="{ errors }" rules="required" name="Symptoms">
-              <v-text-field
-                v-model="analysis.symptoms"
-                label="Symptoms"
-                required
-                :error-messages="errors"
-              ></v-text-field>
-            </validation-provider>
-            <validation-provider v-slot="{ errors }" name="Fruits">
+            <validation-provider v-slot="{ errors }" rules="required" name="Sensor id">
               <v-select
-                class="mt-7"
-                v-model="analysis.fruits"
-                :items="fruits"
-                multiple
-                label="Fruits that can cause this analysis"
+                v-model="analysis.sensor_id"
+                :items="sensors"
+                label="Sensor"
                 :error-messages="errors"
                 :item-text="(item) => `${item.id} - ${item.name}`"
                 item-value="id"
                 dense
               />
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" rules="required" name="Lot id">
+              <v-select
+                v-model="analysis.lot_id"
+                :items="lots"
+                label="Lot id"
+                :error-messages="errors"
+                :item-text="(item) => `${item.id} - ${item.name}`"
+                item-value="id"
+                dense
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required"
+              name="Description"
+            >
+              <v-text-field
+                v-model="analysis.description"
+                label="Description"
+                required
+                :error-messages="errors"
+              ></v-text-field>
             </validation-provider>
           </v-card-text>
           <v-card-actions>
@@ -58,12 +63,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { IAnalysisUpdate } from "@/interfaces";
-import { dispatchGetAnalysis, dispatchUpdateAnalysis } from "@/store/analysiss/actions";
-import { dispatchGetFruits } from "@/store/fruits/actions";
-import { readFruits } from "@/store/fruits/getters";
-import { readAnalysis } from "@/store/analysiss/getters";
+import { dispatchUpdateAnalysis } from "@/store/analysiss/actions";
+import { dispatchGetLots } from "@/store/lots/actions";
+import { dispatchGetSensors } from "@/store/sensors/actions";
+import { dispatchGetAnalysis } from "@/store/analysiss/actions";
+import { readLots } from "@/store/lots/getters";
+import { readSensors } from "@/store/sensors/getters";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, confirmed, email } from "vee-validate/dist/rules";
+import { readAnalysis } from "@/store/analysiss/getters";
 
 extend("required", { ...required, message: "{_field_} can not be empty" });
 extend("confirmed", { ...confirmed, message: "Passwords do not match" });
@@ -81,8 +89,9 @@ export default class EditAnalysis extends Vue {
   };
 
   public async mounted() {
+    await dispatchGetLots(this.$store);
+    await dispatchGetSensors(this.$store);
     await dispatchGetAnalysis(this.$store, { id: this.$route.params.id });
-    await dispatchGetFruits(this.$store);
   }
 
   public cancel() {
@@ -97,9 +106,9 @@ export default class EditAnalysis extends Vue {
 
     const updatedAnalysis: IAnalysisUpdate = {
       id: this.analysis.id,
-      name: this.analysis.name,
-      symptoms: this.analysis.symptoms,
-      fruits: this.analysis.fruits,
+      lot_id: this.analysis.lot_id,
+      sensor_id: this.analysis.sensor_id,
+      description: this.analysis.description,
     };
 
     await dispatchUpdateAnalysis(this.$store, {
@@ -109,16 +118,14 @@ export default class EditAnalysis extends Vue {
 
     this.$router.push("/main/analysiss");
   }
-  get analysis() {
-    return readAnalysis(this.$store)
-    // const analysisFromStore = readAnalysis(this.$store);
-    // return {
-    //   ...analysisFromStore,
-    //   fruits: analysisFromStore?.fruits?.map((el) => el.id),
-    // };
+  get lots() {
+    return readLots(this.$store);
   }
-  get fruits() {
-    return readFruits(this.$store);
+  get sensors() {
+    return readSensors(this.$store);
+  }
+  get analysis() {
+    return readAnalysis(this.$store);
   }
 }
 </script>

@@ -35,47 +35,65 @@ export const actions = {
     context: MainContext,
     payload: { id: number; analysis: IAnalysisUpdate },
   ) {
-    try {
-      const loadingNotification = { content: "saving", showProgress: true };
-      commitAddNotification(context, loadingNotification);
-      const response = (
-        await Promise.all([
-          api.updateAnalysis(context.rootState.main.token, payload.id, payload.analysis),
-          await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
-        ])
-      )[0];
+    const loadingNotification = { content: "saving", showProgress: true };
+    commitAddNotification(context, loadingNotification);
+    
+    api.updateAnalysis(context.rootState.main.token, payload.id, payload.analysis)
+    .then(response => {
       commitSetAnalysis(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
         content: "Analysis successfully updated",
         color: "success",
       });
-    } catch (error) {
-      await dispatchCheckApiError(context, error);
-    }
+    })
+    .catch(error => {
+      commitRemoveNotification(context, loadingNotification);
+
+      if (error?.response?.data?.detail){
+        commitAddNotification(context, {
+          content: error.response.data.detail,
+          color: "error",
+        });
+      } else {
+        commitAddNotification(context, {
+          content: "Generic error",
+          color: "error",
+        });
+      }
+    })
   },
   async actionCreateAnalysis(
     context: MainContext,
     payload: { analysis: IAnalysisCreate },
   ) {
-    try {
-      const loadingNotification = { content: "saving", showProgress: true };
-      commitAddNotification(context, loadingNotification);
-      const response = (
-        await Promise.all([
-          api.createAnalysis(context.rootState.main.token, payload.analysis),
-          await new Promise<void>((resolve, _) => setTimeout(() => resolve(), 500)),
-        ])
-      )[0];
+    const loadingNotification = { content: "saving", showProgress: true };
+    commitAddNotification(context, loadingNotification);
+    
+    api.createAnalysis(context.rootState.main.token, payload.analysis)
+    .then(response => {
       commitSetAnalysis(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Analysis successfully created",
+        content: "Analysis successfully updated",
         color: "success",
       });
-    } catch (error) {
-      await dispatchCheckApiError(context, error);
-    }
+    })
+    .catch(error => {
+      commitRemoveNotification(context, loadingNotification);
+
+      if (error?.response?.data?.detail){
+        commitAddNotification(context, {
+          content: error.response.data.detail,
+          color: "error",
+        });
+      } else {
+        commitAddNotification(context, {
+          content: "Generic error",
+          color: "error",
+        });
+      }
+    })
   },
 };
 

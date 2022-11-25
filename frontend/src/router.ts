@@ -135,7 +135,7 @@ export default new Router({
             },
             {
               path: "analysiss/edit/:id",
-              name: "main-analysis-analysis-edit",
+              name: "main-analysiss-analysis-edit",
               component: EditAnalysis,
             },
             {

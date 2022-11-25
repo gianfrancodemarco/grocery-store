@@ -1,10 +1,10 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-
+import sqlalchemy
 from app import crud, models, schemas
 from app.api import deps
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -41,11 +41,15 @@ def create_sensor_fruit_analysis(
     """
     Create new item.
     """
-    sensor_fruit_analysis = crud.sensor_fruit_analysis.create(db=db, obj_in=sensor_fruit_analysis_in)
+    try:
+        sensor_fruit_analysis = crud.sensor_fruit_analysis.create(db=db, obj_in=sensor_fruit_analysis_in)
+    except sqlalchemy.exc.IntegrityError:
+        raise HTTPException(status_code=400, detail="Integrity error. An analysis already exist with those sensor_id and lot_id")
+
     return sensor_fruit_analysis
 
 
-@router.put("/{id}", response_model=schemas.Sensor)
+@router.put("/{id}", response_model=schemas.SensorFruitAnalysis)
 def update_sensor_fruit_analysis(
     *,
     db: Session = Depends(deps.get_db),
@@ -59,7 +63,12 @@ def update_sensor_fruit_analysis(
     sensor_fruit_analysis = crud.sensor_fruit_analysis.get(db=db, id=id)
     if not sensor_fruit_analysis:
         raise HTTPException(status_code=404, detail="Item not found")
-    sensor_fruit_analysis = crud.sensor_fruit_analysis.update(db=db, db_obj=sensor_fruit_analysis, obj_in=sensor_fruit_analysis_in)
+    
+    try:
+        sensor_fruit_analysis = crud.sensor_fruit_analysis.update(db=db, db_obj=sensor_fruit_analysis, obj_in=sensor_fruit_analysis_in)
+    except sqlalchemy.exc.IntegrityError:
+        raise HTTPException(status_code=400, detail="Integrity error. An analysis already exist with those sensor_id and lot_id")
+
     return sensor_fruit_analysis
 
 
