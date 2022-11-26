@@ -170,7 +170,7 @@ def upgrade():
             BEFORE UPDATE OR INSERT ON LOT
             FOR EACH ROW
             BEGIN
-            IF :new.expired = 1 AND :new.on_display = 1 THEN
+            IF \:new.expired = 1 AND \:new.on_display = 1 THEN
                 raise_application_error(-20042, 'Cannot put on display an expired lot');
             END IF;
             END;
