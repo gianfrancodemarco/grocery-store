@@ -139,7 +139,7 @@ def upgrade():
             SET T.EXPIRED = 1, T.ON_DISPLAY = 0;
 
             IF COUNT_UPDATED_LOT > 0 THEN
-                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('CHECK_AND_UPDATE_LOT_EXPIRATION', 'Update expired lots.');
+                INSERT INTO TRIGGER_AUDITING (TRIGGER_NAME, DESCRIPTION) VALUES ('CHECK_AND_UPDATE_LOT_EXPIRATION', CONCAT(COUNT_UPDATED_LOT, ' lots have expired.'));
             END IF;
             END;
             """
@@ -186,4 +186,15 @@ def downgrade():
     op.drop_table('SENSOR_FRUIT_ANALYSIS')
     op.drop_index(op.f('ix_SENSOR_name'), table_name='SENSOR')
     op.drop_table('SENSOR')
+    op.execute(text("""DROP TRIGGER UPDATE_LOT_PRICE"""))
+    op.execute(text("""DROP TRIGGER UPDATE_LOT_PRICE_ON_BASE_PRICE_CHANGE"""))
+    op.execute(text("""DROP TRIGGER CHECK_SENSOR_TYPE"""))
+    op.execute(text("""DROP TRIGGER CHECK_ON_DISPLAY_ON_EXPIRED_LOT"""))
+    op.execute(text("""DROP PROCEDURE CHECK_AND_UPDATE_LOT_EXPIRATION"""))
+    op.execute(text("""
+        BEGIN
+            dbms_scheduler.drop_Job (Job_Name => 'CHECK_AND_UPDATE_LOT_EXPIRATION_JOB');
+        END;
+    """))
+    op.execute(text("""DROP TRIGGER CHECK_ON_DISPLAY_ON_EXPIRED_LOT"""))
     # ### end Alembic commands ###

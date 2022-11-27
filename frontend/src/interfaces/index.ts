@@ -28,7 +28,8 @@ export interface IFruit {
   name: string;
   peel_type: string;
   maximum_stationary_time: number;
-  size: string
+  size: string;
+  base_price: number;
 }
 
 export interface IFruitUpdate {
@@ -36,14 +37,16 @@ export interface IFruitUpdate {
   name: string;
   peel_type: string;  
   maximum_stationary_time: number;
-  size: string
+  size: string;
+  base_price: number;
 }
 
 export interface IFruitCreate {
   name: string;
   peel_type: string;  
   maximum_stationary_time: number;
-  size: string
+  size: string;
+  base_price: number;
 }
 
 export interface ILot {

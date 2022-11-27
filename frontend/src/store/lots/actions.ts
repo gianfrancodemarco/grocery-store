@@ -43,7 +43,7 @@ export const actions = {
       commitSetLot(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Analysis successfully updated",
+        content: "Lot successfully updated",
         color: "success",
       });
     })
@@ -72,7 +72,7 @@ export const actions = {
       commitSetLot(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Analysis successfully updated",
+        content: "Lot successfully created",
         color: "success",
       });
     })

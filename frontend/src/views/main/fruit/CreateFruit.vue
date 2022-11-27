@@ -128,6 +128,7 @@ export default class EditFruit extends Vue {
       size: this.fruit.size,
       peel_type: this.fruit.peel_type,
       maximum_stationary_time: this.fruit.maximum_stationary_time,
+      base_price: this.fruit.base_price 
     };
 
     await dispatchCreateFruit(this.$store, {

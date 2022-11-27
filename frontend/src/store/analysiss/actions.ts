@@ -75,7 +75,7 @@ export const actions = {
       commitSetAnalysis(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Analysis successfully updated",
+        content: "Analysis successfully created",
         color: "success",
       });
     })

@@ -1,0 +1,1 @@
+source ./oracle_sid.sh
